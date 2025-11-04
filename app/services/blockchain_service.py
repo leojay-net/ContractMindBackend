@@ -68,12 +68,14 @@ class BlockchainService:
 
         return functions
 
-    async def get_all_agents(self, skip: int = 0, limit: int = 100) -> List[AgentResponse]:
-        """Get all registered agents from database cache"""
+    async def get_all_agents(
+        self, skip: int = 0, limit: int = 100, owner: str = None
+    ) -> List[AgentResponse]:
+        """Get all registered agents from database cache with analytics, optionally filtered by owner"""
         try:
             # Query from database cache
             with get_db_connection() as conn:
-                agents_data = AgentCacheModel.get_all_active(conn, limit=limit)
+                agents_data = AgentCacheModel.get_all_active(conn, limit=limit, owner=owner)
 
             # Convert to AgentResponse objects
             agents = []
@@ -82,6 +84,40 @@ class BlockchainService:
                 functions = None
                 if agent_data.get("abi"):
                     functions = self.parse_abi_functions(agent_data["abi"], agent_data["agent_id"])
+
+                # Get analytics for this agent
+                analytics = None
+                try:
+                    with get_db_connection() as conn:
+                        cursor = conn.cursor()
+                        cursor.execute(
+                            """
+                            SELECT 
+                                COUNT(*) as total_calls,
+                                COUNT(DISTINCT user_address) as unique_users,
+                                COALESCE(SUM(gas_used), 0) as total_gas,
+                                AVG(CASE WHEN status = 'confirmed' THEN 1.0 ELSE 0.0 END) as success_rate
+                            FROM transactions
+                            WHERE agent_id = %s
+                            """,
+                            (agent_data["agent_id"],),
+                        )
+                        row = cursor.fetchone()
+                        if row and row[0] > 0:
+                            from app.models.schemas import AgentStats
+
+                            analytics = AgentStats(
+                                agent_id=agent_data["agent_id"],
+                                agent_name=agent_data["name"],
+                                total_calls=row[0] or 0,
+                                unique_users=row[1] or 0,
+                                total_gas_used=row[2] or 0,
+                                success_rate=float(row[3]) if row[3] else 0.0,
+                                average_gas_per_call=int(row[2] / row[0]) if row[0] > 0 else 0,
+                            )
+                        cursor.close()
+                except Exception as e:
+                    logger.debug(f"No analytics for agent {agent_data['agent_id']}: {e}")
 
                 agents.append(
                     AgentResponse(
@@ -93,6 +129,7 @@ class BlockchainService:
                         active=agent_data["active"],
                         created_at=agent_data["created_at"],
                         functions=functions,
+                        analytics=analytics,
                     )
                 )
 
@@ -115,8 +152,9 @@ class BlockchainService:
 
                     # Parse functions from ABI if available
                     functions = None
-                    if agent_data.get("abi"):
-                        functions = self.parse_abi_functions(agent_data["abi"], agent_id)
+                    abi = agent_data.get("abi")
+                    if abi:
+                        functions = self.parse_abi_functions(abi, agent_id)
 
                     return AgentResponse(
                         id=agent_data["agent_id"],
@@ -127,6 +165,7 @@ class BlockchainService:
                         active=agent_data["active"],
                         created_at=agent_data["created_at"],
                         functions=functions,
+                        abi=abi,  # Include full ABI
                     )
 
             # If not in cache, try blockchain

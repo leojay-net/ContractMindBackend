@@ -483,21 +483,34 @@ class AgentCacheModel:
         }
 
     @staticmethod
-    def get_all_active(conn, limit: int = 100) -> List[Dict[str, Any]]:
-        """Get all active agents"""
+    def get_all_active(conn, limit: int = 100, owner: str = None) -> List[Dict[str, Any]]:
+        """Get all active agents, optionally filtered by owner"""
         cursor = conn.cursor()
 
-        cursor.execute(
-            """
-            SELECT agent_id, target_address, owner, name, description, 
-                   config_ipfs, active, created_at, updated_at, abi
-            FROM agents_cache
-            WHERE active = true
-            ORDER BY created_at DESC
-            LIMIT %s
-        """,
-            (limit,),
-        )
+        if owner:
+            cursor.execute(
+                """
+                SELECT agent_id, target_address, owner, name, description, 
+                       config_ipfs, active, created_at, updated_at, abi
+                FROM agents_cache
+                WHERE active = true AND owner = %s
+                ORDER BY created_at DESC
+                LIMIT %s
+            """,
+                (owner, limit),
+            )
+        else:
+            cursor.execute(
+                """
+                SELECT agent_id, target_address, owner, name, description, 
+                       config_ipfs, active, created_at, updated_at, abi
+                FROM agents_cache
+                WHERE active = true
+                ORDER BY created_at DESC
+                LIMIT %s
+            """,
+                (limit,),
+            )
 
         rows = cursor.fetchall()
         cursor.close()
@@ -587,3 +600,104 @@ class AgentFunctionAuthorizationModel:
         cursor.close()
 
         return {row[0]: row[1] for row in rows}
+
+
+# SQL for chat history table
+CREATE_CHAT_MESSAGES_TABLE = """
+CREATE TABLE IF NOT EXISTS chat_messages (
+    id SERIAL PRIMARY KEY,
+    agent_id VARCHAR(66) NOT NULL,
+    user_address VARCHAR(42) NOT NULL,
+    role VARCHAR(20) NOT NULL, -- 'user' or 'assistant'
+    message TEXT NOT NULL,
+    function_name VARCHAR(255),
+    requires_transaction BOOLEAN DEFAULT FALSE,
+    transaction_hash VARCHAR(66),
+    created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_chat_agent_user ON chat_messages(agent_id, user_address, created_at DESC);
+"""
+
+
+class ChatMessageModel:
+    """Model for chat message storage"""
+
+    @staticmethod
+    def create_message(
+        conn,
+        agent_id: str,
+        user_address: str,
+        role: str,
+        message: str,
+        function_name: Optional[str] = None,
+        requires_transaction: bool = False,
+        transaction_hash: Optional[str] = None,
+    ) -> int:
+        """Create a new chat message"""
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO chat_messages 
+            (agent_id, user_address, role, message, function_name, requires_transaction, transaction_hash)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            RETURNING id
+            """,
+            (
+                agent_id,
+                user_address,
+                role,
+                message,
+                function_name,
+                requires_transaction,
+                transaction_hash,
+            ),
+        )
+
+        message_id = cursor.fetchone()[0]
+        conn.commit()
+        cursor.close()
+
+        return message_id
+
+    @staticmethod
+    def get_history(
+        conn, agent_id: str, user_address: str, limit: int = 50
+    ) -> List[Dict[str, Any]]:
+        """Get chat history for an agent and user"""
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT id, role, message, function_name, requires_transaction, 
+                   transaction_hash, created_at
+            FROM chat_messages
+            WHERE agent_id = %s AND user_address = %s
+            ORDER BY created_at DESC
+            LIMIT %s
+            """,
+            (agent_id, user_address, limit),
+        )
+
+        rows = cursor.fetchall()
+        cursor.close()
+
+        messages = []
+        for row in rows:
+            messages.append(
+                {
+                    "id": str(row[0]),
+                    "role": (
+                        "agent" if row[1] == "assistant" else row[1]
+                    ),  # Map 'assistant' to 'agent'
+                    "content": row[2],  # Map 'message' to 'content'
+                    "timestamp": row[6].isoformat() if row[6] else None,
+                    "functionName": row[3],
+                    "requiresTransaction": row[4],
+                    "transactionHash": row[5],
+                }
+            )
+
+        # Return in chronological order (oldest first)
+        return list(reversed(messages))

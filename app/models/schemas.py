@@ -52,6 +52,8 @@ class AgentResponse(BaseModel):
     active: bool
     created_at: Optional[datetime] = Field(None, serialization_alias="createdAt")
     functions: Optional[List[AgentFunction]] = None
+    abi: Optional[List[dict]] = None  # Full ABI for encoding transactions
+    analytics: Optional["AgentStats"] = None  # Analytics data
 
     model_config = ConfigDict(populate_by_name=True, by_alias=True)
 
@@ -170,33 +172,39 @@ class TransactionHistoryResponse(BaseModel):
 class UserStats(BaseModel):
     """User analytics"""
 
-    user_address: str
-    total_transactions: int
-    total_gas_used: int
-    success_rate: float
-    favorite_agents: List[Dict[str, Any]] = Field(default_factory=list)
-    recent_activity: List[Dict[str, Any]] = Field(default_factory=list)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=None, by_alias=True)
+
+    user_address: str = Field(alias="userAddress")
+    total_transactions: int = Field(alias="totalTransactions")
+    total_gas_used: int = Field(alias="totalGasUsed")
+    success_rate: float = Field(alias="successRate")
+    favorite_agents: List[Dict[str, Any]] = Field(default_factory=list, alias="favoriteAgents")
+    recent_activity: List[Dict[str, Any]] = Field(default_factory=list, alias="recentActivity")
 
 
 class AgentStats(BaseModel):
     """Agent analytics"""
 
-    agent_id: str
-    agent_name: str
-    total_calls: int
-    unique_users: int
-    total_gas_used: int
-    success_rate: float
-    average_gas_per_call: int
+    model_config = ConfigDict(populate_by_name=True, alias_generator=None, by_alias=True)
+
+    agent_id: str = Field(alias="agentId")
+    agent_name: str = Field(alias="agentName")
+    total_calls: int = Field(alias="totalCalls")
+    unique_users: int = Field(alias="uniqueUsers")
+    total_gas_used: int = Field(alias="totalGasUsed")
+    success_rate: float = Field(alias="successRate")
+    average_gas_per_call: int = Field(alias="averageGasPerCall")
 
 
 class GlobalStats(BaseModel):
     """Global platform analytics"""
 
-    total_transactions: int
-    total_users: int
-    total_agents: int
-    total_gas_used: int
-    success_rate: float
-    transactions_last_24h: int
-    top_agents: List[Dict[str, Any]] = Field(default_factory=list)
+    model_config = ConfigDict(populate_by_name=True, alias_generator=None, by_alias=True)
+
+    total_transactions: int = Field(alias="totalTransactions")
+    total_users: int = Field(alias="totalUsers")
+    total_agents: int = Field(alias="totalAgents")
+    total_gas_used: int = Field(alias="totalGasUsed")
+    success_rate: float = Field(alias="successRate")
+    transactions_last_24h: int = Field(alias="transactionsLast24h")
+    top_agents: List[Dict[str, Any]] = Field(default_factory=list, alias="topAgents")

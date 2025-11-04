@@ -22,11 +22,12 @@ router = APIRouter()
 async def list_agents(
     skip: int = 0,
     limit: int = 100,
+    owner: Optional[str] = None,
     blockchain: Annotated[BlockchainService, Depends(get_blockchain_service)] = None,
 ):
-    """List all registered agents"""
+    """List all registered agents, optionally filtered by owner address"""
     try:
-        agents = await blockchain.get_all_agents(skip=skip, limit=limit)
+        agents = await blockchain.get_all_agents(skip=skip, limit=limit, owner=owner)
         return AgentListResponse(agents=agents, total=len(agents))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -285,5 +286,141 @@ async def revoke_functions(
             AgentFunctionAuthorizationModel.revoke_functions(conn, agent_id, request.functions)
 
         return {"success": True, "message": f"Revoked {len(request.functions)} function(s)"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class UpdateAgentRequest(BaseModel):
+    """Update agent request"""
+
+    name: Optional[str] = None
+    description: Optional[str] = None
+
+
+class ToggleStatusRequest(BaseModel):
+    """Toggle agent status request"""
+
+    active: bool
+
+
+@router.patch("/{agent_id}")
+async def update_agent(
+    agent_id: str,
+    request: UpdateAgentRequest,
+    blockchain: Annotated[BlockchainService, Depends(get_blockchain_service)] = None,
+):
+    """Update agent details"""
+    try:
+        with get_db_connection() as conn:
+            # Get existing agent
+            agent = AgentCacheModel.get_by_id(conn, agent_id)
+            if not agent:
+                raise HTTPException(status_code=404, detail="Agent not found")
+
+            # Update fields
+            cursor = conn.cursor()
+            update_fields = []
+            params = []
+
+            if request.name is not None:
+                update_fields.append("name = %s")
+                params.append(request.name)
+
+            if request.description is not None:
+                update_fields.append("description = %s")
+                params.append(request.description)
+
+            if not update_fields:
+                return {"success": True, "message": "No changes to update"}
+
+            update_fields.append("updated_at = NOW()")
+            params.append(agent_id)
+
+            query = f"""
+                UPDATE agents_cache 
+                SET {', '.join(update_fields)}
+                WHERE agent_id = %s
+            """
+
+            cursor.execute(query, params)
+            conn.commit()
+            cursor.close()
+
+        # Get updated agent
+        updated_agent = await blockchain.get_agent(agent_id)
+        return {"success": True, "message": "Agent updated successfully", "agent": updated_agent}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.patch("/{agent_id}/status")
+async def toggle_agent_status(
+    agent_id: str,
+    request: ToggleStatusRequest,
+    blockchain: Annotated[BlockchainService, Depends(get_blockchain_service)] = None,
+):
+    """Toggle agent active status"""
+    try:
+        with get_db_connection() as conn:
+            # Get existing agent
+            agent = AgentCacheModel.get_by_id(conn, agent_id)
+            if not agent:
+                raise HTTPException(status_code=404, detail="Agent not found")
+
+            # Update status
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                UPDATE agents_cache 
+                SET active = %s, updated_at = NOW()
+                WHERE agent_id = %s
+                """,
+                (request.active, agent_id),
+            )
+            conn.commit()
+            cursor.close()
+
+        status_text = "activated" if request.active else "deactivated"
+        return {"success": True, "message": f"Agent {status_text} successfully"}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/{agent_id}")
+async def delete_agent(
+    agent_id: str,
+    blockchain: Annotated[BlockchainService, Depends(get_blockchain_service)] = None,
+):
+    """Delete an agent from cache"""
+    try:
+        with get_db_connection() as conn:
+            # Get existing agent
+            agent = AgentCacheModel.get_by_id(conn, agent_id)
+            if not agent:
+                raise HTTPException(status_code=404, detail="Agent not found")
+
+            cursor = conn.cursor()
+
+            # Delete related authorizations
+            cursor.execute(
+                "DELETE FROM agent_function_authorizations WHERE agent_id = %s", (agent_id,)
+            )
+
+            # Delete agent
+            cursor.execute("DELETE FROM agents_cache WHERE agent_id = %s", (agent_id,))
+
+            conn.commit()
+            cursor.close()
+
+        return {"success": True, "message": "Agent deleted successfully"}
+
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

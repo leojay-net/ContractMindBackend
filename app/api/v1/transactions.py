@@ -103,6 +103,40 @@ async def get_transaction_status(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+class ExecuteTransactionRequest(BaseModel):
+    """Execute transaction request"""
+
+    agent_id: str
+    transaction_data: dict
+    user_address: str
+
+
+class ExecuteTransactionResponse(BaseModel):
+    """Execute transaction response"""
+
+    txHash: str
+    status: str = "pending"
+    message: str = "Transaction should be signed and sent via wallet"
+
+
+@router.post("/execute", response_model=ExecuteTransactionResponse)
+async def execute_transaction(request: ExecuteTransactionRequest):
+    """
+    Placeholder endpoint - transactions should be executed via wallet
+
+    In a proper implementation, the frontend should:
+    1. Get prepared transaction from backend
+    2. Sign it with user's wallet (MetaMask, WalletConnect, etc.)
+    3. Send it directly to the blockchain
+    4. Optionally report the tx hash back here for tracking
+    """
+    return ExecuteTransactionResponse(
+        txHash="0x0000000000000000000000000000000000000000000000000000000000000000",
+        status="pending",
+        message="Please use wallet to sign and execute this transaction",
+    )
+
+
 @router.post("/validate")
 async def validate_transaction(
     agent_id: str,
