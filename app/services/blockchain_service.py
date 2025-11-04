@@ -8,9 +8,15 @@ from eth_abi import encode
 from loguru import logger
 
 from app.blockchain.client import blockchain_client
-from app.models.schemas import AgentResponse, TransactionEvent
+from app.models.schemas import (
+    AgentResponse,
+    TransactionEvent,
+    AgentFunction,
+    FunctionInput,
+    FunctionOutput,
+)
 from app.db.session import get_db_connection
-from app.db.models import AgentCacheModel
+from app.db.models import AgentCacheModel, AgentFunctionAuthorizationModel
 
 
 class BlockchainService:
@@ -18,6 +24,49 @@ class BlockchainService:
 
     def __init__(self):
         self.client = blockchain_client
+
+    def parse_abi_functions(
+        self, abi: List[Dict[str, Any]], agent_id: str = None
+    ) -> List[AgentFunction]:
+        """Parse ABI and extract function information with authorization status"""
+        if not abi:
+            return []
+
+        # Get authorization status from database if agent_id provided
+        authorizations = {}
+        if agent_id:
+            try:
+                with get_db_connection() as conn:
+                    authorizations = AgentFunctionAuthorizationModel.get_authorizations(
+                        conn, agent_id
+                    )
+            except Exception as e:
+                logger.error(f"Error fetching authorizations: {e}")
+
+        functions = []
+        for item in abi:
+            if item.get("type") == "function":
+                try:
+                    func_name = item.get("name", "")
+                    func = AgentFunction(
+                        name=func_name,
+                        inputs=[
+                            FunctionInput(name=inp.get("name", ""), type=inp.get("type", ""))
+                            for inp in item.get("inputs", [])
+                        ],
+                        outputs=[
+                            FunctionOutput(name=out.get("name", ""), type=out.get("type", ""))
+                            for out in item.get("outputs", [])
+                        ],
+                        stateMutability=item.get("stateMutability", "nonpayable"),
+                        authorized=authorizations.get(func_name, False),  # Check DB for status
+                    )
+                    functions.append(func)
+                except Exception as e:
+                    logger.error(f"Error parsing function {item.get('name')}: {e}")
+                    continue
+
+        return functions
 
     async def get_all_agents(self, skip: int = 0, limit: int = 100) -> List[AgentResponse]:
         """Get all registered agents from database cache"""
@@ -29,6 +78,11 @@ class BlockchainService:
             # Convert to AgentResponse objects
             agents = []
             for agent_data in agents_data:
+                # Parse functions from ABI if available
+                functions = None
+                if agent_data.get("abi"):
+                    functions = self.parse_abi_functions(agent_data["abi"], agent_data["agent_id"])
+
                 agents.append(
                     AgentResponse(
                         id=agent_data["agent_id"],
@@ -38,6 +92,7 @@ class BlockchainService:
                         config_ipfs=agent_data["config_ipfs"],
                         active=agent_data["active"],
                         created_at=agent_data["created_at"],
+                        functions=functions,
                     )
                 )
 
@@ -49,8 +104,33 @@ class BlockchainService:
             return []
 
     async def get_agent(self, agent_id: str) -> Optional[AgentResponse]:
-        """Get agent by ID"""
+        """Get agent by ID - checks database cache first, then blockchain"""
         try:
+            # First, try to get from database cache
+            with get_db_connection() as conn:
+                agent_data = AgentCacheModel.get_by_id(conn, agent_id)
+
+                if agent_data:
+                    logger.info(f"Found agent {agent_id} in database cache")
+
+                    # Parse functions from ABI if available
+                    functions = None
+                    if agent_data.get("abi"):
+                        functions = self.parse_abi_functions(agent_data["abi"], agent_id)
+
+                    return AgentResponse(
+                        id=agent_data["agent_id"],
+                        target_address=agent_data["target_address"],
+                        owner=agent_data["owner"],
+                        name=agent_data["name"],
+                        config_ipfs=agent_data["config_ipfs"],
+                        active=agent_data["active"],
+                        created_at=agent_data["created_at"],
+                        functions=functions,
+                    )
+
+            # If not in cache, try blockchain
+            logger.info(f"Agent {agent_id} not in cache, querying blockchain...")
             registry = self.client.get_contract("AgentRegistry")
 
             # Convert agent_id to bytes32 if it's a hex string

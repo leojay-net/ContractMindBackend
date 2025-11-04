@@ -100,6 +100,14 @@ class BlockchainClient:
         """Get current gas price"""
         return await self.w3.eth.gas_price
 
+    async def get_transaction_count(self, address: str) -> int:
+        """Get transaction count (nonce) for address"""
+        try:
+            return await self.w3.eth.get_transaction_count(address)
+        except Exception as e:
+            logger.error(f"Failed to get transaction count for {address}: {e}")
+            return 0
+
     async def estimate_gas(self, transaction: Dict[str, Any]) -> int:
         """Estimate gas for transaction"""
         try:

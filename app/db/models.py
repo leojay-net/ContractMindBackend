@@ -299,6 +299,82 @@ class TransactionModel:
             for row in rows
         ]
 
+    @staticmethod
+    def get_transactions(
+        conn,
+        agent_id: Optional[str] = None,
+        user_address: Optional[str] = None,
+        status: Optional[str] = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> tuple[List[Dict[str, Any]], int]:
+        """
+        Get transactions with optional filters
+        Returns tuple of (transactions, total_count)
+        """
+        cursor = conn.cursor()
+
+        # Build WHERE clause dynamically
+        where_clauses = []
+        params = []
+
+        if agent_id:
+            where_clauses.append("agent_id = %s")
+            params.append(agent_id)
+
+        if user_address:
+            where_clauses.append("user_address = %s")
+            params.append(user_address)
+
+        if status:
+            where_clauses.append("status = %s")
+            params.append(status)
+
+        where_sql = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
+
+        # Get total count
+        count_query = f"SELECT COUNT(*) FROM transactions {where_sql}"
+        cursor.execute(count_query, tuple(params))
+        total = cursor.fetchone()[0]
+
+        # Get transactions
+        query = f"""
+            SELECT id, tx_hash, user_address, agent_id, target_address,
+                   function_name, execution_mode, status, block_number,
+                   gas_used, intent_action, intent_protocol, created_at, confirmed_at
+            FROM transactions
+            {where_sql}
+            ORDER BY created_at DESC
+            LIMIT %s OFFSET %s
+        """
+        params.extend([limit, offset])
+        cursor.execute(query, tuple(params))
+
+        rows = cursor.fetchall()
+        cursor.close()
+
+        transactions = [
+            {
+                "id": row[0],
+                "tx_hash": row[1],
+                "user_address": row[2],
+                "agent_id": row[3],
+                "target_address": row[4],
+                "function_name": row[5],
+                "execution_mode": row[6],
+                "status": row[7],
+                "block_number": row[8],
+                "gas_used": row[9],
+                "intent_action": row[10],
+                "intent_protocol": row[11],
+                "created_at": row[12],
+                "confirmed_at": row[13],
+            }
+            for row in rows
+        ]
+
+        return transactions, total
+
 
 class AgentCacheModel:
     """Helper class for agents_cache operations"""
@@ -308,13 +384,20 @@ class AgentCacheModel:
         """Insert or update an agent in cache"""
         cursor = conn.cursor()
 
+        # Convert abi to JSON string if it's a list/dict
+        import json
+
+        if "abi" in agent_data and isinstance(agent_data["abi"], (list, dict)):
+            agent_data = agent_data.copy()
+            agent_data["abi"] = json.dumps(agent_data["abi"])
+
         cursor.execute(
             """
             INSERT INTO agents_cache (
-                agent_id, target_address, owner, name, description, config_ipfs, active
+                agent_id, target_address, owner, name, description, config_ipfs, active, abi
             ) VALUES (
                 %(agent_id)s, %(target_address)s, %(owner)s, %(name)s, 
-                %(description)s, %(config_ipfs)s, %(active)s
+                %(description)s, %(config_ipfs)s, %(active)s, %(abi)s
             )
             ON CONFLICT (agent_id) DO UPDATE SET
                 target_address = EXCLUDED.target_address,
@@ -323,6 +406,7 @@ class AgentCacheModel:
                 description = EXCLUDED.description,
                 config_ipfs = EXCLUDED.config_ipfs,
                 active = EXCLUDED.active,
+                abi = EXCLUDED.abi,
                 updated_at = NOW()
         """,
             agent_data,
@@ -339,7 +423,7 @@ class AgentCacheModel:
         cursor.execute(
             """
             SELECT agent_id, target_address, owner, name, description, 
-                   config_ipfs, active, created_at, updated_at
+                   config_ipfs, active, created_at, updated_at, abi
             FROM agents_cache
             WHERE agent_id = %s
         """,
@@ -362,6 +446,7 @@ class AgentCacheModel:
             "active": row[6],
             "created_at": row[7],
             "updated_at": row[8],
+            "abi": row[9],  # JSONB field, already parsed as dict/list
         }
 
     @staticmethod
@@ -405,7 +490,7 @@ class AgentCacheModel:
         cursor.execute(
             """
             SELECT agent_id, target_address, owner, name, description, 
-                   config_ipfs, active, created_at, updated_at
+                   config_ipfs, active, created_at, updated_at, abi
             FROM agents_cache
             WHERE active = true
             ORDER BY created_at DESC
@@ -428,6 +513,7 @@ class AgentCacheModel:
                 "active": row[6],
                 "created_at": row[7],
                 "updated_at": row[8],
+                "abi": row[9],  # JSONB field
             }
             for row in rows
         ]
@@ -440,3 +526,64 @@ class AgentCacheModel:
         count = cursor.fetchone()[0]
         cursor.close()
         return count
+
+
+class AgentFunctionAuthorizationModel:
+    """Helper class for agent function authorization operations"""
+
+    @staticmethod
+    def authorize_functions(conn, agent_id: str, function_names: List[str]):
+        """Authorize functions for an agent"""
+        cursor = conn.cursor()
+
+        for function_name in function_names:
+            cursor.execute(
+                """
+                INSERT INTO agent_function_authorizations (agent_id, function_name, authorized)
+                VALUES (%s, %s, true)
+                ON CONFLICT (agent_id, function_name) 
+                DO UPDATE SET authorized = true, updated_at = NOW()
+                """,
+                (agent_id, function_name),
+            )
+
+        conn.commit()
+        cursor.close()
+
+    @staticmethod
+    def revoke_functions(conn, agent_id: str, function_names: List[str]):
+        """Revoke functions for an agent"""
+        cursor = conn.cursor()
+
+        for function_name in function_names:
+            cursor.execute(
+                """
+                INSERT INTO agent_function_authorizations (agent_id, function_name, authorized)
+                VALUES (%s, %s, false)
+                ON CONFLICT (agent_id, function_name) 
+                DO UPDATE SET authorized = false, updated_at = NOW()
+                """,
+                (agent_id, function_name),
+            )
+
+        conn.commit()
+        cursor.close()
+
+    @staticmethod
+    def get_authorizations(conn, agent_id: str) -> Dict[str, bool]:
+        """Get function authorization status for an agent"""
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT function_name, authorized
+            FROM agent_function_authorizations
+            WHERE agent_id = %s
+            """,
+            (agent_id,),
+        )
+
+        rows = cursor.fetchall()
+        cursor.close()
+
+        return {row[0]: row[1] for row in rows}

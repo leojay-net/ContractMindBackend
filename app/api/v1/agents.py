@@ -2,7 +2,7 @@
 Agent management endpoints
 """
 
-from typing import Annotated, List
+from typing import Annotated, List, Optional, Dict, Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
@@ -12,11 +12,13 @@ from app.models.schemas import AgentResponse, AgentListResponse
 from app.services.blockchain_service import BlockchainService
 from app.blockchain.client import blockchain_client
 from app.config import settings
+from app.db.session import get_db_connection
+from app.db.models import AgentCacheModel, AgentFunctionAuthorizationModel
 
 router = APIRouter()
 
 
-@router.get("/", response_model=AgentListResponse)
+@router.get("", response_model=AgentListResponse)
 async def list_agents(
     skip: int = 0,
     limit: int = 100,
@@ -53,6 +55,7 @@ class RegisterAgentRequest(BaseModel):
     targetContract: str
     name: str
     configIPFS: str
+    abi: Optional[List[Dict[str, Any]]] = None  # Optional ABI for the target contract
 
 
 @router.post("/register", response_model=dict)
@@ -77,7 +80,7 @@ async def register_agent(
             )
 
         # Build transaction
-        tx = registry.functions.registerAgent(
+        tx = await registry.functions.registerAgent(
             request.targetContract,
             request.name,
             request.configIPFS,
@@ -87,7 +90,7 @@ async def register_agent(
                 "value": 0,
                 "gas": 0,
                 "gasPrice": 0,
-                "nonce": await blockchain.client.w3.eth.get_transaction_count(request.ownerAddress),
+                "nonce": await blockchain.client.get_transaction_count(request.ownerAddress),
             }
         )
 
@@ -131,6 +134,7 @@ class ConfirmAgentRegistrationRequest(BaseModel):
     """Confirm registration by parsing the transaction receipt for AgentRegistered."""
 
     txHash: str
+    abi: Optional[List[Dict[str, Any]]] = None  # Optional ABI for the target contract
 
 
 @router.post("/confirm", response_model=dict)
@@ -195,7 +199,29 @@ async def confirm_agent_registration(
                 "name": name,
                 "active": bool(active),
             }
-        except Exception:
+
+            # Save to database
+            try:
+                with get_db_connection() as conn:
+                    AgentCacheModel.upsert(
+                        conn,
+                        {
+                            "agent_id": agent_id_hex,
+                            "target_address": target,
+                            "owner": owner,
+                            "name": name,
+                            "description": "",
+                            "config_ipfs": config_ipfs,
+                            "active": bool(active),
+                            "abi": request.abi if request.abi else None,
+                        },
+                    )
+            except Exception as db_error:
+                # Log but don't fail - agent is already on blockchain
+                print(f"Warning: Failed to cache agent in database: {db_error}")
+
+        except Exception as e:
+            print(f"Error fetching agent details: {e}")
             agent_obj = None
 
         return {
@@ -221,5 +247,43 @@ async def get_agent_by_name(agent_name: str, blockchain: BlockchainService = Dep
         return agent
     except HTTPException:
         raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class AuthorizeFunctionsRequest(BaseModel):
+    """Request to authorize functions"""
+
+    functions: List[str]
+
+
+@router.post("/{agent_id}/authorize")
+async def authorize_functions(
+    agent_id: str,
+    request: AuthorizeFunctionsRequest,
+    blockchain: Annotated[BlockchainService, Depends(get_blockchain_service)] = None,
+):
+    """Authorize functions for an agent"""
+    try:
+        with get_db_connection() as conn:
+            AgentFunctionAuthorizationModel.authorize_functions(conn, agent_id, request.functions)
+
+        return {"success": True, "message": f"Authorized {len(request.functions)} function(s)"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/{agent_id}/revoke")
+async def revoke_functions(
+    agent_id: str,
+    request: AuthorizeFunctionsRequest,
+    blockchain: Annotated[BlockchainService, Depends(get_blockchain_service)] = None,
+):
+    """Revoke functions for an agent"""
+    try:
+        with get_db_connection() as conn:
+            AgentFunctionAuthorizationModel.revoke_functions(conn, agent_id, request.functions)
+
+        return {"success": True, "message": f"Revoked {len(request.functions)} function(s)"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

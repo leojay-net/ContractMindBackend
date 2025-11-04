@@ -7,6 +7,31 @@ from typing import Optional, List, Dict, Any
 from datetime import datetime
 
 
+# Function Schemas
+class FunctionInput(BaseModel):
+    """Function input parameter"""
+
+    name: str
+    type: str
+
+
+class FunctionOutput(BaseModel):
+    """Function output parameter"""
+
+    name: str
+    type: str
+
+
+class AgentFunction(BaseModel):
+    """Agent function from ABI"""
+
+    name: str
+    inputs: List[FunctionInput] = []
+    outputs: List[FunctionOutput] = []
+    stateMutability: str = Field(serialization_alias="stateMutability")
+    authorized: bool = False  # Default to false, can be updated later
+
+
 # Agent Schemas
 class AgentBase(BaseModel):
     """Base agent model"""
@@ -20,12 +45,15 @@ class AgentResponse(BaseModel):
     """Agent response model"""
 
     id: str
-    target_address: str
+    target_address: str = Field(serialization_alias="targetContract")
     owner: str
     name: str
-    config_ipfs: str
+    config_ipfs: str = Field(serialization_alias="configIPFS")
     active: bool
-    created_at: Optional[datetime] = None
+    created_at: Optional[datetime] = Field(None, serialization_alias="createdAt")
+    functions: Optional[List[AgentFunction]] = None
+
+    model_config = ConfigDict(populate_by_name=True, by_alias=True)
 
 
 class AgentListResponse(BaseModel):
@@ -108,6 +136,34 @@ class TransactionReceipt(BaseModel):
     gas_used: int
     status: int  # 1 = success, 0 = failed
     events: List[TransactionEvent] = Field(default_factory=list)
+
+
+class TransactionHistoryItem(BaseModel):
+    """Transaction history item"""
+
+    id: int
+    tx_hash: str
+    user_address: str
+    agent_id: Optional[str] = None
+    target_address: str
+    function_name: Optional[str] = None
+    execution_mode: str
+    status: str
+    block_number: Optional[int] = None
+    gas_used: Optional[int] = None
+    intent_action: Optional[str] = None
+    intent_protocol: Optional[str] = None
+    created_at: datetime
+    confirmed_at: Optional[datetime] = None
+
+
+class TransactionHistoryResponse(BaseModel):
+    """Transaction history response"""
+
+    transactions: List[TransactionHistoryItem]
+    total: int
+    limit: int
+    offset: int
 
 
 # Analytics Schemas
