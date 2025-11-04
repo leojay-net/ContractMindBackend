@@ -103,6 +103,18 @@ open https://your-app.onrender.com/docs
 
 ## Common Issues
 
+### Issue: ModuleNotFoundError: No module named 'lru'
+**Fix:** Added `lru-dict` to dependencies. Ensure `pyproject.toml` includes:
+```toml
+lru-dict = "^1.3.0"
+```
+This is required for web3.py on Python 3.13+.
+
+### Issue: Python version incompatibility
+**Fix:** Use Python 3.12 instead of 3.13. Set in Render:
+- Environment variable: `PYTHON_VERSION=3.12.0`
+- Or create `.python-version` file with `3.12.0`
+
 ### Issue: Module not found
 **Fix:** Ensure start command is `app.main:app` not `main:app`
 
