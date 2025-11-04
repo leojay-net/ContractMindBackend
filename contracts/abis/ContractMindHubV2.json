@@ -1,0 +1,2211 @@
+{
+  "abi": [
+    {
+      "type": "constructor",
+      "inputs": [
+        {
+          "name": "_agentRegistry",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "_feeCollector",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "MAX_CALLS_PER_WINDOW",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "RATE_LIMIT_WINDOW",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "agentCallCount",
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "agentGasUsed",
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "agentRegistry",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "contract AgentRegistry"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "authorizeFunction",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "authorizedFunctions",
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "batchAuthorize",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelectors",
+          "type": "bytes4[]",
+          "internalType": "bytes4[]"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "executeOnTarget",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "callData",
+          "type": "bytes",
+          "internalType": "bytes"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes",
+          "internalType": "bytes"
+        }
+      ],
+      "stateMutability": "payable"
+    },
+    {
+      "type": "function",
+      "name": "executionHistory",
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        },
+        {
+          "name": "timestamp",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "gasUsed",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "success",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "feeCollector",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAgentAnalytics",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "totalCalls",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "totalGasUsed",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "avgGasPerCall",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getExecutionHistory",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple[]",
+          "internalType": "struct ContractMindHubV2.ExecutionContext[]",
+          "components": [
+            {
+              "name": "user",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "functionSelector",
+              "type": "bytes4",
+              "internalType": "bytes4"
+            },
+            {
+              "name": "timestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "gasUsed",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "success",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getRateLimitInfo",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "callCount",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "resetTime",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "isLimited",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "isFunctionAuthorized",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "owner",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "pause",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "paused",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "protocolFeeBps",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "queryTarget",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "callData",
+          "type": "bytes",
+          "internalType": "bytes"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes",
+          "internalType": "bytes"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "recordTransaction",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        },
+        {
+          "name": "success",
+          "type": "bool",
+          "internalType": "bool"
+        },
+        {
+          "name": "gasUsed",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "renounceOwnership",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "revokeFunction",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "setFeeCollector",
+      "inputs": [
+        {
+          "name": "newCollector",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "setProtocolFee",
+      "inputs": [
+        {
+          "name": "newFeeBps",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "transferOwnership",
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "trustedCallers",
+      "inputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "unpause",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "validateTransaction",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "internalType": "bytes4"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "authorized",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "event",
+      "name": "FeeCollectorUpdated",
+      "inputs": [
+        {
+          "name": "newCollector",
+          "type": "address",
+          "indexed": false,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "FunctionAuthorized",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "indexed": true,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "indexed": false,
+          "internalType": "bytes4"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "FunctionExecuted",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "indexed": true,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "indexed": false,
+          "internalType": "bytes4"
+        },
+        {
+          "name": "success",
+          "type": "bool",
+          "indexed": false,
+          "internalType": "bool"
+        },
+        {
+          "name": "returnData",
+          "type": "bytes",
+          "indexed": false,
+          "internalType": "bytes"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "FunctionRevoked",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "indexed": true,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "indexed": false,
+          "internalType": "bytes4"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "OwnershipTransferred",
+      "inputs": [
+        {
+          "name": "previousOwner",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "newOwner",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "Paused",
+      "inputs": [
+        {
+          "name": "account",
+          "type": "address",
+          "indexed": false,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "ProtocolFeeUpdated",
+      "inputs": [
+        {
+          "name": "newFeeBps",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "QueryExecuted",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "indexed": true,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "targetContract",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "functionSelector",
+          "type": "bytes4",
+          "indexed": false,
+          "internalType": "bytes4"
+        },
+        {
+          "name": "returnData",
+          "type": "bytes",
+          "indexed": false,
+          "internalType": "bytes"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "RateLimitExceeded",
+      "inputs": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "indexed": true,
+          "internalType": "bytes32"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "TransactionValidated",
+      "inputs": [
+        {
+          "name": "agentId",
+          "type": "bytes32",
+          "indexed": true,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "txHash",
+          "type": "bytes32",
+          "indexed": false,
+          "internalType": "bytes32"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "Unpaused",
+      "inputs": [
+        {
+          "name": "account",
+          "type": "address",
+          "indexed": false,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "error",
+      "name": "AgentNotActive",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "EnforcedPause",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ExecutionFailed",
+      "inputs": [
+        {
+          "name": "returnData",
+          "type": "bytes",
+          "internalType": "bytes"
+        }
+      ]
+    },
+    {
+      "type": "error",
+      "name": "ExpectedPause",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "FeeTooHigh",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "FunctionNotAuthorized",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "InvalidFeeCollector",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "InvalidTarget",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "NotAgentOwner",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "OwnableInvalidOwner",
+      "inputs": [
+        {
+          "name": "owner",
+          "type": "address",
+          "internalType": "address"
+        }
+      ]
+    },
+    {
+      "type": "error",
+      "name": "OwnableUnauthorizedAccount",
+      "inputs": [
+        {
+          "name": "account",
+          "type": "address",
+          "internalType": "address"
+        }
+      ]
+    },
+    {
+      "type": "error",
+      "name": "RateLimitExceededError",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ReentrancyGuardReentrantCall",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "Unauthorized",
+      "inputs": []
+    }
+  ],
+  "bytecode": {
+    "object": "0x60a03461016657601f611a9f38819003918201601f19168301916001600160401b0383118484101761016a57808492604094855283398101031261016657610052602061004b8361017e565b920161017e565b903315610153575f8054336001600160a01b0319821681178355604051949290916001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a360018055600254600a600355916001600160a01b03168015610144576001600160a01b03821615610135576080526001600160a81b031990911660089190911b610100600160a81b03161760025561190c908161019382396080518181816103fd0152818161078a015281816108eb01528181610a4401528181610c1901528181611235015281816112c901526116c30152f35b63bb0bac9960e01b5f5260045ffd5b63416aebb560e11b5f5260045ffd5b631e4fbdf760e01b5f525f60045260245ffd5b5f80fd5b634e487b7160e01b5f52604160045260245ffd5b51906001600160a01b03821682036101665756fe60806040526004361015610011575f80fd5b5f3560e01c80630934fffa1461106357806309d6cea1146112645780630d1cfcae146112205780631833f0cf146110dc57806318a90692146110b25780631ca0347d1461106357806335659fb8146110465780633f4ba83a14610fe05780633ffd56fd14610be357806340ed556514610b57578063525a46b4146109c657806353bacc70146108bd5780635c975abb1461089b5780635e0b31e91461087157806366523f7d1461075c5780637130dfc914610740578063715018a6146106e9578063787dce3d146106845780637e27ace0146106615780638456cb591461060857806385b71e4e146105ed5780638da5cb5b146105c65780638fb40e34146103d3578063a42dce801461033f578063a6329c7f146102bd578063ae3d22ff14610280578063b5377c211461020d578063c415b95c146101e15763f2fde38b14610158575f80fd5b346101dd5760203660031901126101dd576101716114ab565b610179611895565b6001600160a01b031680156101ca575f80546001600160a01b03198116831782556001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a3005b631e4fbdf760e01b5f525f60045260245ffd5b5f80fd5b346101dd575f3660031901126101dd5760025460405160089190911c6001600160a01b03168152602090f35b346101dd5760203660031901126101dd576004355f90815260056020908152604080832054600690925290912054908015806102755761026157818160609304905b60405192835260208301526040820152f35b634e487b7160e01b5f52601260045260245ffd5b506060915f9061024f565b346101dd5760203660031901126101dd576001600160a01b036102a16114ab565b165f526009602052602060ff60405f2054166040519015158152f35b346101dd5760403660031901126101dd576024356004355f52600460205260405f2080548210156101dd5760a0916102f491611589565b5080549060018101549060ff60036002830154920154169160405193600180871b038116855263ffffffff60e01b9060401b1660208501526040840152606083015215156080820152f35b346101dd5760203660031901126101dd576103586114ab565b610360611895565b6001600160a01b0381169081156103c45760028054610100600160a81b03191660089290921b610100600160a81b03169190911790556040519081527fe5693914d19c789bdee50a362998c0bc8d035a835f9871da5d51152f0582c34f90602090a1005b63bb0bac9960e01b5f5260045ffd5b346101dd576103e1366114fc565b604051638a92792b60e01b8152600481018590529093919291907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031690602081602481855afa90811561057d575f91610597575b50156105885760206024916040519283809262b55fc760e41b82528660048301525afa90811561057d575f9161054e575b506001600160a01b0383811691160361053f57836004116101dd575f9081526007602090815260408083206001600160a01b0385168452825280832085356001600160e01b031916845290915290205460ff161561053057825f939284936040519283928337810184815203915afa6104e5611638565b90156105075761050390604051918291602083526020830190611565565b0390f35b6040516315fcd67560e01b81526020600482015290819061052c906024830190611565565b0390fd5b637bf0db1360e01b5f5260045ffd5b63416aebb560e11b5f5260045ffd5b610570915060203d602011610576575b61056881836115d2565b81019061160c565b8561046e565b503d61055e565b6040513d5f823e3d90fd5b632437e77160e11b5f5260045ffd5b6105b9915060203d6020116105bf575b6105b181836115d2565b8101906115f4565b8661043d565b503d6105a7565b346101dd575f3660031901126101dd575f546040516001600160a01b039091168152602090f35b346101dd575f3660031901126101dd57602060405160648152f35b346101dd575f3660031901126101dd57610620611895565b6106286118bb565b600160ff1960025416176002557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2586020604051338152a1005b346101dd57602061067a610674366114c1565b916116a9565b6040519015158152f35b346101dd5760203660031901126101dd576004356106a0611895565b6101f481116106da576020817fd10d75876659a287a59a6ccfa2e3fff42f84d94b542837acd30bc184d562de4092600355604051908152a1005b63cd4e616760e01b5f5260045ffd5b346101dd575f3660031901126101dd57610701611895565b5f80546001600160a01b0319811682556001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b346101dd575f3660031901126101dd576020604051610e108152f35b346101dd5761076a366114c1565b60405163d61fed1360e01b815260048101849052909291906020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f91610852575b50336001600160a01b0390911603610843575f8281526007602090815260408083206001600160a01b039094168084529382528083206001600160e01b031990961680845295825291829020805460ff19169055905193845290927fe1d4e544d966ddc3b93b002c02729be3f590ffe660ed6981d5b624bd3a2d981c9190a3005b630e41dcbf60e21b5f5260045ffd5b61086b915060203d6020116105765761056881836115d2565b846107c2565b346101dd5760203660031901126101dd576004355f526006602052602060405f2054604051908152f35b346101dd575f3660031901126101dd57602060ff600254166040519015158152f35b346101dd576108cb366114c1565b60405163d61fed1360e01b815260048101849052909291906020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f916109a7575b50336001600160a01b0390911603610843575f8281526007602090815260408083206001600160a01b039094168084529382528083206001600160e01b031990961680845295825291829020805460ff19166001179055905193845290927fe9de25100ec576c579a628da89de45fa1d48d6cea1ccb7af5e2fc678c9d53d1b9190a3005b6109c0915060203d6020116105765761056881836115d2565b84610923565b346101dd5760603660031901126101dd576004356109e2611495565b60443567ffffffffffffffff81116101dd57366023820112156101dd5780600401359267ffffffffffffffff84116101dd576024820191602436918660051b0101116101dd5760405163d61fed1360e01b8152600481018290526020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f91610b38575b50336001600160a01b03909116036108435790916001600160a01b0316905f5b848110610aa557005b600190825f52600760205260405f20845f5260205260405f2063ffffffff60e01b610ad9610ad4848a8a611684565b611694565b165f5260205260405f208260ff1982541617905583837fe9de25100ec576c579a628da89de45fa1d48d6cea1ccb7af5e2fc678c9d53d1b6020610b20610ad4868c8c611684565b6040516001600160e01b03199091168152a301610a9c565b610b51915060203d6020116105765761056881836115d2565b85610a7c565b346101dd5760403660031901126101dd57610b706114ab565b60018060a01b03165f52600860205260405f206024355f5260205260405f206001810154905490610e108201809211610bcf57606091428111610bc4575f905b604051928352602083015215156040820152f35b606482101590610bb0565b634e487b7160e01b5f52601160045260245ffd5b610bec366114fc565b90610bf893929361181b565b610c006118bb565b5a604051638a92792b60e01b81526004810185905290947f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316939091602081602481885afa90811561057d575f91610fc1575b50156105885760206024946040519586809262b55fc760e41b82528960048301525afa93841561057d575f94610fa0575b506001600160a01b03828116941684900361053f57806004116101dd5763ffffffff60e01b83351692855f52600760205260405f20855f5260205260405f20845f5260205260ff60405f2054161561053057335f52600860205260405f20865f5260205260405f208054610e108101809111610bcf574210610f58575b50349034158015610ec6575b50915f93918493826040519384928337810185815203925af192610d42610d3a611638565b955a9061162b565b815f52600460205260405f2090604051610d5b816115b6565b338152602081019085825260408101904282526060810198848a52608082019015998a15968783528054600160401b811015610eb257610da091600182018155611589565b949094610e9f5792518454955163ffffffff60a01b604091821c166001600160a01b039092166001600160c01b0319909716969096171784559151600184015590516002830155516003909101805460ff191691151560ff169190911790555f8481526005602052208054610e149061183b565b9055825f526006602052610e2d60405f20918254611677565b9055610e398233611849565b6040519283526020830152606060408301527ff7091769a2bf3a630d43365fb29e109c3bd10545be83a7550b9d7ecb35f34d73339280610e7c6060820189611565565b0390a4610507576105039060018055604051918291602083526020830190611565565b634e487b7160e01b5f525f60045260245ffd5b634e487b7160e01b5f52604160045260245ffd5b90929391506003549081340291348304141715610bcf576127109004925f808080610ef1883461162b565b60025490989060081c6001600160a01b03165af1610f0d611638565b5015610f1d579188939193610d15565b60405162461bcd60e51b8152602060048201526013602482015272119959481d1c985b9cd9995c8819985a5b1959606a1b6044820152606490fd5b600160649101541015610f6b5787610d09565b85337f48110a6b7340549bd478fcf8f502cfe9c13e8aa1dee5c4ce958bb055535d37fe5f80a3637f278cc160e01b5f5260045ffd5b610fba91945060203d6020116105765761056881836115d2565b9286610c8c565b610fda915060203d6020116105bf576105b181836115d2565b87610c5b565b346101dd575f3660031901126101dd57610ff8611895565b60025460ff8116156110375760ff19166002557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa6020604051338152a1005b638dfc202b60e01b5f5260045ffd5b346101dd575f3660031901126101dd576020600354604051908152f35b346101dd57611071366114c1565b915f52600760205260405f209060018060a01b03165f5260205260405f209063ffffffff60e01b165f52602052602060ff60405f2054166040519015158152f35b346101dd5760203660031901126101dd576004355f526005602052602060405f2054604051908152f35b346101dd5760203660031901126101dd576004355f52600460205260405f2080549067ffffffffffffffff8211610eb2576040519161112160208260051b01846115d2565b8083526020830180925f5260205f205f915b8383106111c0578486604051918291602083019060208452518091526040830191905f5b818110611165575050500390f35b825180516001600160a01b031685526020818101516001600160e01b03191681870152604080830151908701526060808301519087015260809182015115159186019190915286955060a09094019390920191600101611157565b600460206001926040516111d3816115b6565b8554858060a01b038116825263ffffffff60e01b9060401b16838201528486015460408201526002860154606082015260ff60038701541615156080820152815201920192019190611133565b346101dd575f3660031901126101dd576040517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b346101dd5760a03660031901126101dd57600435611280611495565b6044359063ffffffff60e01b82168092036101dd576064358015158091036101dd576084356112ad61181b565b604051638a92792b60e01b8152600481018690526020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f91611476575b501561058857845f52600760205260405f2060018060a01b0384165f5260205260405f20845f5260205260ff60405f2054161561053057845f52600460205260405f2060405190611351826115b6565b338252602082019186835260408101914283526060820185815260808301918783528054600160401b811015610eb25761139091600182018155611589565b949094610e9f5792518454955163ffffffff60a01b604091821c166001600160a01b039092166001600160c01b0319909716969096171784559151600184015590516002830155516003909101805460ff191691151560ff169190911790555f86815260056020522080546114049061183b565b9055845f52600660205261141d60405f20918254611677565b90556114298433611849565b6040519283526020830152606060408301525f606083015260018060a01b0316917ff7091769a2bf3a630d43365fb29e109c3bd10545be83a7550b9d7ecb35f34d7360803393a460018055005b61148f915060203d6020116105bf576105b181836115d2565b86611301565b602435906001600160a01b03821682036101dd57565b600435906001600160a01b03821682036101dd57565b60609060031901126101dd57600435906024356001600160a01b03811681036101dd57906044356001600160e01b0319811681036101dd5790565b9060606003198301126101dd57600435916024356001600160a01b03811681036101dd579160443567ffffffffffffffff81116101dd57826023820112156101dd5780600401359267ffffffffffffffff84116101dd57602484830101116101dd576024019190565b805180835260209291819084018484015e5f828201840152601f01601f1916010190565b80548210156115a2575f5260205f209060021b01905f90565b634e487b7160e01b5f52603260045260245ffd5b60a0810190811067ffffffffffffffff821117610eb257604052565b90601f8019910116810190811067ffffffffffffffff821117610eb257604052565b908160209103126101dd575180151581036101dd5790565b908160209103126101dd57516001600160a01b03811681036101dd5790565b91908203918211610bcf57565b3d15611672573d9067ffffffffffffffff8211610eb25760405191611667601f8201601f1916602001846115d2565b82523d5f602084013e565b606090565b91908201809211610bcf57565b91908110156115a25760051b0190565b356001600160e01b0319811681036101dd5790565b604051638a92792b60e01b815260048101829052909291907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031690602081602481855afa90811561057d575f916117fc575b50156117f45760206024916040519283809262b55fc760e41b82528860048301525afa90811561057d575f916117d5575b506001600160a01b038281169116036117ce57825f52600760205260405f209060018060a01b03165f5260205260405f209063ffffffff60e01b165f5260205260ff60405f205416156117c957335f52600860205260405f20905f5260205260405f208054610e108101809111610bcf5742106117b2575b50600190565b6001606491015410156117c5575f6117ac565b5f90565b505f90565b5050505f90565b6117ee915060203d6020116105765761056881836115d2565b5f611734565b505050505f90565b611815915060203d6020116105bf576105b181836115d2565b5f611703565b60026001541461182c576002600155565b633ee5aeb560e01b5f5260045ffd5b5f198114610bcf5760010190565b60018060a01b03165f52600860205260405f20905f5260205260405f20805490610e108201809211610bcf57600191421061188657428155810155565b01611891815461183b565b9055565b5f546001600160a01b031633036118a857565b63118cdaa760e01b5f523360045260245ffd5b60ff600254166118c757565b63d93c066560e01b5f5260045ffdfea264697066735822122028507746ce77b363d14a84071faef201dcbfb7f9cd8d0c4abd609e5936fda7f064736f6c634300081c0033",
+    "sourceMap": "664:16553:30:-:0;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;:::i;:::-;4107:10;;1273:26:20;1269:95;;-1:-1:-1;664:16553:30;;4107:10;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;4107:10;;-1:-1:-1;;;;;664:16553:30;;3052:40:20;;-1:-1:-1;3052:40:20;1713:1:27;664:16553:30;;1231:15:26;664:16553:30;1470:2;;664:16553;;-1:-1:-1;;;;;664:16553:30;4133:28;;4129:56;;-1:-1:-1;;;;;664:16553:30;;4199:27;4195:61;;4267:45;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;-1:-1:-1;;;;;664:16553:30;;1231:15:26;664:16553:30;;;;;;;4267:45;664:16553;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;4195:61;4235:21;;;-1:-1:-1;4235:21:30;;-1:-1:-1;4235:21:30;4129:56;4170:15;;;-1:-1:-1;4170:15:30;;-1:-1:-1;4170:15:30;1269:95:20;1322:31;;;-1:-1:-1;1322:31:20;-1:-1:-1;1322:31:20;664:16553:30;;-1:-1:-1;1322:31:20;664:16553:30;-1:-1:-1;664:16553:30;;;;;;-1:-1:-1;664:16553:30;;;;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;;;;;664:16553:30;;;;;;:::o",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x60806040526004361015610011575f80fd5b5f3560e01c80630934fffa1461106357806309d6cea1146112645780630d1cfcae146112205780631833f0cf146110dc57806318a90692146110b25780631ca0347d1461106357806335659fb8146110465780633f4ba83a14610fe05780633ffd56fd14610be357806340ed556514610b57578063525a46b4146109c657806353bacc70146108bd5780635c975abb1461089b5780635e0b31e91461087157806366523f7d1461075c5780637130dfc914610740578063715018a6146106e9578063787dce3d146106845780637e27ace0146106615780638456cb591461060857806385b71e4e146105ed5780638da5cb5b146105c65780638fb40e34146103d3578063a42dce801461033f578063a6329c7f146102bd578063ae3d22ff14610280578063b5377c211461020d578063c415b95c146101e15763f2fde38b14610158575f80fd5b346101dd5760203660031901126101dd576101716114ab565b610179611895565b6001600160a01b031680156101ca575f80546001600160a01b03198116831782556001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a3005b631e4fbdf760e01b5f525f60045260245ffd5b5f80fd5b346101dd575f3660031901126101dd5760025460405160089190911c6001600160a01b03168152602090f35b346101dd5760203660031901126101dd576004355f90815260056020908152604080832054600690925290912054908015806102755761026157818160609304905b60405192835260208301526040820152f35b634e487b7160e01b5f52601260045260245ffd5b506060915f9061024f565b346101dd5760203660031901126101dd576001600160a01b036102a16114ab565b165f526009602052602060ff60405f2054166040519015158152f35b346101dd5760403660031901126101dd576024356004355f52600460205260405f2080548210156101dd5760a0916102f491611589565b5080549060018101549060ff60036002830154920154169160405193600180871b038116855263ffffffff60e01b9060401b1660208501526040840152606083015215156080820152f35b346101dd5760203660031901126101dd576103586114ab565b610360611895565b6001600160a01b0381169081156103c45760028054610100600160a81b03191660089290921b610100600160a81b03169190911790556040519081527fe5693914d19c789bdee50a362998c0bc8d035a835f9871da5d51152f0582c34f90602090a1005b63bb0bac9960e01b5f5260045ffd5b346101dd576103e1366114fc565b604051638a92792b60e01b8152600481018590529093919291907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031690602081602481855afa90811561057d575f91610597575b50156105885760206024916040519283809262b55fc760e41b82528660048301525afa90811561057d575f9161054e575b506001600160a01b0383811691160361053f57836004116101dd575f9081526007602090815260408083206001600160a01b0385168452825280832085356001600160e01b031916845290915290205460ff161561053057825f939284936040519283928337810184815203915afa6104e5611638565b90156105075761050390604051918291602083526020830190611565565b0390f35b6040516315fcd67560e01b81526020600482015290819061052c906024830190611565565b0390fd5b637bf0db1360e01b5f5260045ffd5b63416aebb560e11b5f5260045ffd5b610570915060203d602011610576575b61056881836115d2565b81019061160c565b8561046e565b503d61055e565b6040513d5f823e3d90fd5b632437e77160e11b5f5260045ffd5b6105b9915060203d6020116105bf575b6105b181836115d2565b8101906115f4565b8661043d565b503d6105a7565b346101dd575f3660031901126101dd575f546040516001600160a01b039091168152602090f35b346101dd575f3660031901126101dd57602060405160648152f35b346101dd575f3660031901126101dd57610620611895565b6106286118bb565b600160ff1960025416176002557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2586020604051338152a1005b346101dd57602061067a610674366114c1565b916116a9565b6040519015158152f35b346101dd5760203660031901126101dd576004356106a0611895565b6101f481116106da576020817fd10d75876659a287a59a6ccfa2e3fff42f84d94b542837acd30bc184d562de4092600355604051908152a1005b63cd4e616760e01b5f5260045ffd5b346101dd575f3660031901126101dd57610701611895565b5f80546001600160a01b0319811682556001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b346101dd575f3660031901126101dd576020604051610e108152f35b346101dd5761076a366114c1565b60405163d61fed1360e01b815260048101849052909291906020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f91610852575b50336001600160a01b0390911603610843575f8281526007602090815260408083206001600160a01b039094168084529382528083206001600160e01b031990961680845295825291829020805460ff19169055905193845290927fe1d4e544d966ddc3b93b002c02729be3f590ffe660ed6981d5b624bd3a2d981c9190a3005b630e41dcbf60e21b5f5260045ffd5b61086b915060203d6020116105765761056881836115d2565b846107c2565b346101dd5760203660031901126101dd576004355f526006602052602060405f2054604051908152f35b346101dd575f3660031901126101dd57602060ff600254166040519015158152f35b346101dd576108cb366114c1565b60405163d61fed1360e01b815260048101849052909291906020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f916109a7575b50336001600160a01b0390911603610843575f8281526007602090815260408083206001600160a01b039094168084529382528083206001600160e01b031990961680845295825291829020805460ff19166001179055905193845290927fe9de25100ec576c579a628da89de45fa1d48d6cea1ccb7af5e2fc678c9d53d1b9190a3005b6109c0915060203d6020116105765761056881836115d2565b84610923565b346101dd5760603660031901126101dd576004356109e2611495565b60443567ffffffffffffffff81116101dd57366023820112156101dd5780600401359267ffffffffffffffff84116101dd576024820191602436918660051b0101116101dd5760405163d61fed1360e01b8152600481018290526020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f91610b38575b50336001600160a01b03909116036108435790916001600160a01b0316905f5b848110610aa557005b600190825f52600760205260405f20845f5260205260405f2063ffffffff60e01b610ad9610ad4848a8a611684565b611694565b165f5260205260405f208260ff1982541617905583837fe9de25100ec576c579a628da89de45fa1d48d6cea1ccb7af5e2fc678c9d53d1b6020610b20610ad4868c8c611684565b6040516001600160e01b03199091168152a301610a9c565b610b51915060203d6020116105765761056881836115d2565b85610a7c565b346101dd5760403660031901126101dd57610b706114ab565b60018060a01b03165f52600860205260405f206024355f5260205260405f206001810154905490610e108201809211610bcf57606091428111610bc4575f905b604051928352602083015215156040820152f35b606482101590610bb0565b634e487b7160e01b5f52601160045260245ffd5b610bec366114fc565b90610bf893929361181b565b610c006118bb565b5a604051638a92792b60e01b81526004810185905290947f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316939091602081602481885afa90811561057d575f91610fc1575b50156105885760206024946040519586809262b55fc760e41b82528960048301525afa93841561057d575f94610fa0575b506001600160a01b03828116941684900361053f57806004116101dd5763ffffffff60e01b83351692855f52600760205260405f20855f5260205260405f20845f5260205260ff60405f2054161561053057335f52600860205260405f20865f5260205260405f208054610e108101809111610bcf574210610f58575b50349034158015610ec6575b50915f93918493826040519384928337810185815203925af192610d42610d3a611638565b955a9061162b565b815f52600460205260405f2090604051610d5b816115b6565b338152602081019085825260408101904282526060810198848a52608082019015998a15968783528054600160401b811015610eb257610da091600182018155611589565b949094610e9f5792518454955163ffffffff60a01b604091821c166001600160a01b039092166001600160c01b0319909716969096171784559151600184015590516002830155516003909101805460ff191691151560ff169190911790555f8481526005602052208054610e149061183b565b9055825f526006602052610e2d60405f20918254611677565b9055610e398233611849565b6040519283526020830152606060408301527ff7091769a2bf3a630d43365fb29e109c3bd10545be83a7550b9d7ecb35f34d73339280610e7c6060820189611565565b0390a4610507576105039060018055604051918291602083526020830190611565565b634e487b7160e01b5f525f60045260245ffd5b634e487b7160e01b5f52604160045260245ffd5b90929391506003549081340291348304141715610bcf576127109004925f808080610ef1883461162b565b60025490989060081c6001600160a01b03165af1610f0d611638565b5015610f1d579188939193610d15565b60405162461bcd60e51b8152602060048201526013602482015272119959481d1c985b9cd9995c8819985a5b1959606a1b6044820152606490fd5b600160649101541015610f6b5787610d09565b85337f48110a6b7340549bd478fcf8f502cfe9c13e8aa1dee5c4ce958bb055535d37fe5f80a3637f278cc160e01b5f5260045ffd5b610fba91945060203d6020116105765761056881836115d2565b9286610c8c565b610fda915060203d6020116105bf576105b181836115d2565b87610c5b565b346101dd575f3660031901126101dd57610ff8611895565b60025460ff8116156110375760ff19166002557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa6020604051338152a1005b638dfc202b60e01b5f5260045ffd5b346101dd575f3660031901126101dd576020600354604051908152f35b346101dd57611071366114c1565b915f52600760205260405f209060018060a01b03165f5260205260405f209063ffffffff60e01b165f52602052602060ff60405f2054166040519015158152f35b346101dd5760203660031901126101dd576004355f526005602052602060405f2054604051908152f35b346101dd5760203660031901126101dd576004355f52600460205260405f2080549067ffffffffffffffff8211610eb2576040519161112160208260051b01846115d2565b8083526020830180925f5260205f205f915b8383106111c0578486604051918291602083019060208452518091526040830191905f5b818110611165575050500390f35b825180516001600160a01b031685526020818101516001600160e01b03191681870152604080830151908701526060808301519087015260809182015115159186019190915286955060a09094019390920191600101611157565b600460206001926040516111d3816115b6565b8554858060a01b038116825263ffffffff60e01b9060401b16838201528486015460408201526002860154606082015260ff60038701541615156080820152815201920192019190611133565b346101dd575f3660031901126101dd576040517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b346101dd5760a03660031901126101dd57600435611280611495565b6044359063ffffffff60e01b82168092036101dd576064358015158091036101dd576084356112ad61181b565b604051638a92792b60e01b8152600481018690526020816024817f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03165afa90811561057d575f91611476575b501561058857845f52600760205260405f2060018060a01b0384165f5260205260405f20845f5260205260ff60405f2054161561053057845f52600460205260405f2060405190611351826115b6565b338252602082019186835260408101914283526060820185815260808301918783528054600160401b811015610eb25761139091600182018155611589565b949094610e9f5792518454955163ffffffff60a01b604091821c166001600160a01b039092166001600160c01b0319909716969096171784559151600184015590516002830155516003909101805460ff191691151560ff169190911790555f86815260056020522080546114049061183b565b9055845f52600660205261141d60405f20918254611677565b90556114298433611849565b6040519283526020830152606060408301525f606083015260018060a01b0316917ff7091769a2bf3a630d43365fb29e109c3bd10545be83a7550b9d7ecb35f34d7360803393a460018055005b61148f915060203d6020116105bf576105b181836115d2565b86611301565b602435906001600160a01b03821682036101dd57565b600435906001600160a01b03821682036101dd57565b60609060031901126101dd57600435906024356001600160a01b03811681036101dd57906044356001600160e01b0319811681036101dd5790565b9060606003198301126101dd57600435916024356001600160a01b03811681036101dd579160443567ffffffffffffffff81116101dd57826023820112156101dd5780600401359267ffffffffffffffff84116101dd57602484830101116101dd576024019190565b805180835260209291819084018484015e5f828201840152601f01601f1916010190565b80548210156115a2575f5260205f209060021b01905f90565b634e487b7160e01b5f52603260045260245ffd5b60a0810190811067ffffffffffffffff821117610eb257604052565b90601f8019910116810190811067ffffffffffffffff821117610eb257604052565b908160209103126101dd575180151581036101dd5790565b908160209103126101dd57516001600160a01b03811681036101dd5790565b91908203918211610bcf57565b3d15611672573d9067ffffffffffffffff8211610eb25760405191611667601f8201601f1916602001846115d2565b82523d5f602084013e565b606090565b91908201809211610bcf57565b91908110156115a25760051b0190565b356001600160e01b0319811681036101dd5790565b604051638a92792b60e01b815260048101829052909291907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031690602081602481855afa90811561057d575f916117fc575b50156117f45760206024916040519283809262b55fc760e41b82528860048301525afa90811561057d575f916117d5575b506001600160a01b038281169116036117ce57825f52600760205260405f209060018060a01b03165f5260205260405f209063ffffffff60e01b165f5260205260ff60405f205416156117c957335f52600860205260405f20905f5260205260405f208054610e108101809111610bcf5742106117b2575b50600190565b6001606491015410156117c5575f6117ac565b5f90565b505f90565b5050505f90565b6117ee915060203d6020116105765761056881836115d2565b5f611734565b505050505f90565b611815915060203d6020116105bf576105b181836115d2565b5f611703565b60026001541461182c576002600155565b633ee5aeb560e01b5f5260045ffd5b5f198114610bcf5760010190565b60018060a01b03165f52600860205260405f20905f5260205260405f20805490610e108201809211610bcf57600191421061188657428155810155565b01611891815461183b565b9055565b5f546001600160a01b031633036118a857565b63118cdaa760e01b5f523360045260245ffd5b60ff600254166118c757565b63d93c066560e01b5f5260045ffdfea264697066735822122028507746ce77b363d14a84071faef201dcbfb7f9cd8d0c4abd609e5936fda7f064736f6c634300081c0033",
+    "sourceMap": "664:16553:30:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;:::i;:::-;1500:62:20;;:::i;:::-;-1:-1:-1;;;;;664:16553:30;2627:22:20;;2623:91;;664:16553:30;;;-1:-1:-1;;;;;;664:16553:30;;;;;;-1:-1:-1;;;;;664:16553:30;;3052:40:20;;664:16553:30;3052:40:20;664:16553:30;2623:91:20;2672:31;;;664:16553:30;2672:31:20;664:16553:30;;;;;2672:31:20;664:16553:30;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;1405:27;664:16553;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;14410:14;664:16553;;;;;;;;;14458:12;664:16553;;;;;;;;14505:14;;;;;664:16553;;;;;;;14505:46;;664:16553;;;;;;;;;;;;;;;;;;;;;;;;;;14505:46;;664:16553;14505:46;664:16553;14505:46;;;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;-1:-1:-1;;;;;664:16553:30;;:::i;:::-;;;;2144:46;664:16553;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;;;;;;;;;1639:62;;;;;664:16553;1639:62;;;;:::i;:::-;664:16553;;;1639:62;664:16553;1639:62;;664:16553;1639:62;664:16553;1639:62;;;;664:16553;1639:62;;664:16553;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;:::i;:::-;1500:62:20;;:::i;:::-;-1:-1:-1;;;;;664:16553:30;;;13531:26;;13527:60;;13597:27;664:16553;;-1:-1:-1;;;;;;664:16553:30;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;13639:33;;664:16553;;13639:33;664:16553;13527:60;13566:21;;;664:16553;13566:21;664:16553;;13566:21;664:16553;;;;;;;:::i;:::-;;;-1:-1:-1;;;4992:36:30;;664:16553;4992:36;;664:16553;;;;;;;;;4992:13;-1:-1:-1;;;;;664:16553:30;;;;4992:36;664:16553;;4992:36;;;;;;;664:16553;4992:36;;;664:16553;4991:37;;4987:66;;664:16553;4992:36;664:16553;;;;;;;;;;5095:37;;;664:16553;5095:37;;664:16553;5095:37;;;;;;;664:16553;5095:37;;;664:16553;-1:-1:-1;;;;;;664:16553:30;;;;;5095:55;5091:108;;664:16553;;;;;;;;;5305:19;664:16553;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;;5304:55;5300:116;;664:16553;;;;;;;;;;;;;;;;;;5507:57;;;;;;:::i;:::-;5579:8;;5575:73;;664:16553;;;;;;;;;;;;;;;:::i;:::-;;;;5575:73;664:16553;;-1:-1:-1;;;5610:27:30;;664:16553;;5610:27;;664:16553;;;;;;4992:36;664:16553;;;;:::i;:::-;5610:27;;;5300:116;10264:23;;;664:16553;5382:23;664:16553;;5382:23;5091:108;6575:15;;;664:16553;5173:15;664:16553;;5173:15;5095:37;;;;664:16553;5095:37;664:16553;5095:37;;;;;;;;:::i;:::-;;;;;:::i;:::-;;;;;;;;;;664:16553;;;;;;;;;4987:66;10148:16;;;664:16553;5037:16;664:16553;;5037:16;4992:36;;;;664:16553;4992:36;664:16553;4992:36;;;;;;;;:::i;:::-;;;;;:::i;:::-;;;;;;;;;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;1612:3;664:16553;;;;;;;;;-1:-1:-1;;664:16553:30;;;;1500:62:20;;:::i;:::-;1439:72:26;;:::i;:::-;2532:4;664:16553:30;;2522:14:26;664:16553:30;;;2522:14:26;664:16553:30;2551:20:26;664:16553:30;;;735:10:25;664:16553:30;;2551:20:26;664:16553:30;;;;;;;;;;:::i;:::-;;;:::i;:::-;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;1500:62:20;;:::i;:::-;13225:3:30;13213:15;;13209:40;;664:16553;;13300:29;664:16553;13259:26;664:16553;;;;;;13300:29;664:16553;13209:40;13237:12;;;664:16553;13237:12;664:16553;;13237:12;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;1500:62:20;;:::i;:::-;664:16553:30;;;-1:-1:-1;;;;;;664:16553:30;;;;-1:-1:-1;;;;;664:16553:30;3052:40:20;664:16553:30;;3052:40:20;664:16553:30;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;1552:7;664:16553;;;;;;;;;;:::i;:::-;;;-1:-1:-1;;;11740:36:30;;664:16553;11740:36;;664:16553;;;;;;;;;11740:36;664:16553;11740:13;-1:-1:-1;;;;;664:16553:30;11740:36;;;;;;;664:16553;11740:36;;;664:16553;-1:-1:-1;11780:10:30;-1:-1:-1;;;;;664:16553:30;;;11740:50;11736:103;;664:16553;;;;11849:19;664:16553;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;11935:58;;664:16553;11935:58;664:16553;11736:103;12464:15;;;664:16553;11813:15;664:16553;;11813:15;11740:36;;;;664:16553;11740:36;664:16553;11740:36;;;;;;;:::i;:::-;;;;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;1762:47;664:16553;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;1920:7:26;664:16553:30;;;;;;;;;;;;;;;;;:::i;:::-;;;-1:-1:-1;;;11106:36:30;;664:16553;11106:36;;664:16553;;;;;;;;;11106:36;664:16553;11106:13;-1:-1:-1;;;;;664:16553:30;11106:36;;;;;;;664:16553;11106:36;;;664:16553;-1:-1:-1;11146:10:30;-1:-1:-1;;;;;664:16553:30;;;11106:50;11102:103;;664:16553;;;;11215:19;664:16553;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;;;11300:61;;664:16553;11300:61;664:16553;11106:36;;;;664:16553;11106:36;664:16553;11106:36;;;;;;;:::i;:::-;;;;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;12391:36:30;;664:16553;12391:36;;664:16553;;;;;;;12391:13;-1:-1:-1;;;;;664:16553:30;12391:36;;;;;;;664:16553;12391:36;;;664:16553;-1:-1:-1;12431:10:30;-1:-1:-1;;;;;664:16553:30;;;12391:50;12387:103;;12505:13;;-1:-1:-1;;;;;664:16553:30;;;12520:28;;;;;;664:16553;12550:3;664:16553;;;;;12569:19;664:16553;;;;;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;664:16553:30;;;;12631:20;;;;;;:::i;:::-;;:::i;:::-;664:16553;;;;;;;;;;;;;;;;;12784:20;;12691:127;664:16553;12784:20;;;;;;:::i;:::-;664:16553;;-1:-1:-1;;;;;;664:16553:30;;;;;12691:127;664:16553;12505:13;;12391:36;;;;664:16553;12391:36;664:16553;12391:36;;;;;;;:::i;:::-;;;;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;;;:::i;:::-;;;;;;;;;15388:10;664:16553;;;;;;;;;;;;;;;15435:14;;664:16553;;;;1552:7;664:16553;;;;;;;;;15524:15;:57;-1:-1:-1;15524:57:30;;664:16553;15520:186;;664:16553;;;;;;;;;;;;;;;;15520:186;1612:3;15657:38;;;15520:186;;;664:16553;;;;;;;;;;;;;;;;:::i;:::-;2322:103:27;;;;;;:::i;:::-;1439:72:26;;:::i;:::-;6250:9:30;664:16553;;-1:-1:-1;;;6394:36:30;;664:16553;6394:36;;664:16553;;;;;6394:13;-1:-1:-1;;;;;664:16553:30;;;;;;6394:36;664:16553;;6394:36;;;;;;;664:16553;6394:36;;;664:16553;6393:37;;6389:66;;664:16553;6394:36;664:16553;;;;;;;;;;6497:37;;;664:16553;6497:37;;664:16553;6497:37;;;;;;;664:16553;6497:37;;;664:16553;-1:-1:-1;;;;;;664:16553:30;;;;;6497:55;;;6493:108;;664:16553;;;;;;;;;;;;;;;6707:19;664:16553;;;;;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;6706:55;6702:116;;6342:10;664:16553;;16005:10;664:16553;;;;;;;;;;;;;;;1552:7;664:16553;;;;;;;16045:15;:56;16041:249;;664:16553;6968:9;;;;6991:13;;;6987:266;;664:16553;;;;;;;;;;;;;;;;;;;;;7576:74;;;;;7709:20;7576:74;;:::i;:::-;7720:9;;7709:20;;:::i;:::-;664:16553;;;;;;;;;;;;;;;:::i;:::-;6342:10;664:16553;;;16904:216;;664:16553;;;;;16904:216;;16045:15;;664:16553;;;16904:216;;664:16553;;;;16904:216;;;664:16553;;;;;;;;;;;-1:-1:-1;;;664:16553:30;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;-1:-1:-1;;;664:16553:30;;;;;-1:-1:-1;;;;;664:16553:30;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;17141:14;664:16553;;;;;17141:25;;;:::i;:::-;664:16553;;;;;17176:12;664:16553;;17176:32;664:16553;;;;;;17176:32;:::i;:::-;664:16553;;7988:7;6342:10;;7988:7;:::i;:::-;664:16553;;;;;;;;;;;;;;8012:160;6342:10;664:16553;;;;;;;;:::i;:::-;8012:160;;;8183:73;;664:16553;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;6394:36;664:16553;;;;;;;;;;;6394:36;664:16553;;6987:266;664:16553;;;;;7047:14;664:16553;6968:9;;;664:16553;6968:9;;664:16553;;;;;;;7065:5;664:16553;;6968:9;664:16553;6968:9;;;7101:15;6968:9;;7101:15;:::i;:::-;7153:12;664:16553;;;;16005:10;664:16553;-1:-1:-1;;;;;664:16553:30;7153:33;;;;:::i;:::-;;664:16553;;;6987:266;;;;;;;664:16553;;;-1:-1:-1;;;664:16553:30;;;;;;;;6394:36;664:16553;;;-1:-1:-1;;;664:16553:30;;;;;;;16041:249;16121:14;1612:3;16121:14;;664:16553;16121:38;;16117:163;;16041:249;;;16117:163;6342:10;;16184:32;664:16553;16184:32;;16241:24;;;664:16553;16241:24;664:16553;;16241:24;6497:37;;;;;664:16553;6497:37;664:16553;6497:37;;;;;;;:::i;:::-;;;;;6394:36;;;;664:16553;6394:36;664:16553;6394:36;;;;;;;:::i;:::-;;;;664:16553;;;;;;-1:-1:-1;;664:16553:30;;;;1500:62:20;;:::i;:::-;1920:7:26;664:16553:30;;;;2264:9:26;2260:62;;664:16553:30;;;1920:7:26;664:16553:30;2798:22:26;664:16553:30;;;735:10:25;664:16553:30;;2798:22:26;664:16553:30;2260:62:26;2296:15;;;664:16553:30;2296:15:26;664:16553:30;;2296:15:26;664:16553:30;;;;;;-1:-1:-1;;664:16553:30;;;;;1438:34;664:16553;;;;;;;;;;;;;;:::i;:::-;;;;1837:98;664:16553;;;;;1837:98;664:16553;;;;;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;1707:49;664:16553;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;1355:44;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;2322:103:27;;:::i;:::-;664:16553:30;;-1:-1:-1;;;10103:36:30;;664:16553;10103:36;;664:16553;;;;;;;10103:13;-1:-1:-1;;;;;664:16553:30;10103:36;;;;;;;664:16553;10103:36;;;664:16553;10102:37;;10098:66;;664:16553;;;10179:19;664:16553;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;10178:63;10174:124;;664:16553;;;;;;;;;;;;;;;:::i;:::-;10024:10;664:16553;;;16904:216;;664:16553;;;;;16904:216;;17022:15;;664:16553;;;16904:216;;664:16553;;;;16904:216;;664:16553;;;;;;-1:-1:-1;;;664:16553:30;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;-1:-1:-1;;;664:16553:30;;;;;-1:-1:-1;;;;;664:16553:30;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;17141:14;664:16553;;;;;17141:25;;;:::i;:::-;664:16553;;;;;17176:12;664:16553;;17176:32;664:16553;;;;;;17176:32;:::i;:::-;664:16553;;10538:7;10024:10;;10538:7;:::i;:::-;664:16553;;;;;;;;;;;;;;;;;;;;;;;;;10024:10;10562:160;664:16553;10024:10;10562:160;;664:16553;;;;10103:36;;;;664:16553;10103:36;664:16553;10103:36;;;;;;;:::i;:::-;;;;664:16553;;;;-1:-1:-1;;;;;664:16553:30;;;;;;:::o;:::-;;;;-1:-1:-1;;;;;664:16553:30;;;;;;:::o;:::-;;;;;;;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;-1:-1:-1;;;;;;664:16553:30;;;;;;;:::o;:::-;;;-1:-1:-1;;664:16553:30;;;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;-1:-1:-1;664:16553:30;;;;;;;;-1:-1:-1;;664:16553:30;;;;:::o;:::-;;;;;;;;-1:-1:-1;664:16553:30;;-1:-1:-1;664:16553:30;;;;;;-1:-1:-1;664:16553:30;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;;;;-1:-1:-1;;;;;664:16553:30;;;;;;;:::o;:::-;;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;;;-1:-1:-1;;664:16553:30;;;;;:::i;:::-;;;;-1:-1:-1;664:16553:30;;;;:::o;:::-;;;:::o;:::-;;;;;;;;;;:::o;:::-;;;;;;;;;;;;:::o;:::-;;-1:-1:-1;;;;;;664:16553:30;;;;;;;:::o;8645:740::-;664:16553;;-1:-1:-1;;;8825:36:30;;;;;664:16553;;;8645:740;;;;8825:13;-1:-1:-1;;;;;664:16553:30;;;;8825:36;664:16553;;8825:36;;;;;;;664:16553;8825:36;;;8645:740;8824:37;;8820:55;;664:16553;8825:36;664:16553;;;;;;;;;;8889:37;;;8825:36;8889:37;;664:16553;8889:37;;;;;;;664:16553;8889:37;;;8645:740;-1:-1:-1;;;;;;664:16553:30;;;;;8889:55;8885:85;;664:16553;;;8985:19;664:16553;;;;;8985:44;664:16553;;;;;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;664:16553:30;;;;;;;;;;;;;;;;8984:63;8980:93;;9152:10;664:16553;;9141:10;664:16553;;;;;;;;;;;;;;;1552:7;664:16553;;;;;;;9186:15;:56;9182:175;;8645:740;9367:11;9374:4;8645:740;:::o;9182:175::-;9262:14;1612:3;9262:14;;664:16553;9262:38;;9258:89;;9182:175;;;9258:89;664:16553;9320:12;:::o;8980:93::-;9061:12;664:16553;9061:12;:::o;8885:85::-;8958:12;;;664:16553;8958:12;:::o;8889:37::-;;;;664:16553;8889:37;664:16553;8889:37;;;;;;;:::i;:::-;;;;8820:55;8863:12;;;;664:16553;8863:12;:::o;8825:36::-;;;;664:16553;8825:36;664:16553;8825:36;;;;;;;:::i;:::-;;;;2431:307:27;1755:1;2558:7;664:16553:30;2558:18:27;2554:86;;1755:1;2558:7;664:16553:30;2431:307:27:o;2554:86::-;2599:30;;;-1:-1:-1;2599:30:27;;-1:-1:-1;2599:30:27;664:16553:30;-1:-1:-1;;664:16553:30;;;;;;;:::o;16302:350::-;664:16553;;;;;;-1:-1:-1;664:16553:30;16407:10;664:16553;;;-1:-1:-1;664:16553:30;;-1:-1:-1;664:16553:30;;;;-1:-1:-1;664:16553:30;;;;1552:7;664:16553;;;;;;;16587:1;;16447:15;:57;;;:15;664:16553;;16570:14;;664:16553;16302:350::o;16443:203::-;16619:14;:16;664:16553;;16619:16;:::i;:::-;664:16553;;16302:350::o;1796:162:20:-;1710:6;664:16553:30;-1:-1:-1;;;;;664:16553:30;735:10:25;1855:23:20;1851:101;;1796:162::o;1851:101::-;1901:40;;;1710:6;1901:40;735:10:25;1901:40:20;664:16553:30;;1710:6:20;1901:40;2002:128:26;664:16553:30;1920:7:26;664:16553:30;;2063:61:26;;2002:128::o;2063:61::-;2098:15;;;-1:-1:-1;2098:15:26;;-1:-1:-1;2098:15:26",
+    "linkReferences": {},
+    "immutableReferences": {
+      "41873": [
+        {
+          "start": 1021,
+          "length": 32
+        },
+        {
+          "start": 1930,
+          "length": 32
+        },
+        {
+          "start": 2283,
+          "length": 32
+        },
+        {
+          "start": 2628,
+          "length": 32
+        },
+        {
+          "start": 3097,
+          "length": 32
+        },
+        {
+          "start": 4661,
+          "length": 32
+        },
+        {
+          "start": 4809,
+          "length": 32
+        },
+        {
+          "start": 5827,
+          "length": 32
+        }
+      ]
+    }
+  },
+  "methodIdentifiers": {
+    "MAX_CALLS_PER_WINDOW()": "85b71e4e",
+    "RATE_LIMIT_WINDOW()": "7130dfc9",
+    "agentCallCount(bytes32)": "18a90692",
+    "agentGasUsed(bytes32)": "5e0b31e9",
+    "agentRegistry()": "0d1cfcae",
+    "authorizeFunction(bytes32,address,bytes4)": "53bacc70",
+    "authorizedFunctions(bytes32,address,bytes4)": "1ca0347d",
+    "batchAuthorize(bytes32,address,bytes4[])": "525a46b4",
+    "executeOnTarget(bytes32,address,bytes)": "3ffd56fd",
+    "executionHistory(bytes32,uint256)": "a6329c7f",
+    "feeCollector()": "c415b95c",
+    "getAgentAnalytics(bytes32)": "b5377c21",
+    "getExecutionHistory(bytes32)": "1833f0cf",
+    "getRateLimitInfo(address,bytes32)": "40ed5565",
+    "isFunctionAuthorized(bytes32,address,bytes4)": "0934fffa",
+    "owner()": "8da5cb5b",
+    "pause()": "8456cb59",
+    "paused()": "5c975abb",
+    "protocolFeeBps()": "35659fb8",
+    "queryTarget(bytes32,address,bytes)": "8fb40e34",
+    "recordTransaction(bytes32,address,bytes4,bool,uint256)": "09d6cea1",
+    "renounceOwnership()": "715018a6",
+    "revokeFunction(bytes32,address,bytes4)": "66523f7d",
+    "setFeeCollector(address)": "a42dce80",
+    "setProtocolFee(uint256)": "787dce3d",
+    "transferOwnership(address)": "f2fde38b",
+    "trustedCallers(address)": "ae3d22ff",
+    "unpause()": "3f4ba83a",
+    "validateTransaction(bytes32,address,bytes4)": "7e27ace0"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_agentRegistry\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_feeCollector\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AgentNotActive\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EnforcedPause\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"returnData\",\"type\":\"bytes\"}],\"name\":\"ExecutionFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExpectedPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FeeTooHigh\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FunctionNotAuthorized\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidFeeCollector\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidTarget\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAgentOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RateLimitExceededError\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReentrancyGuardReentrantCall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Unauthorized\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newCollector\",\"type\":\"address\"}],\"name\":\"FeeCollectorUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"}],\"name\":\"FunctionAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"returnData\",\"type\":\"bytes\"}],\"name\":\"FunctionExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"}],\"name\":\"FunctionRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newFeeBps\",\"type\":\"uint256\"}],\"name\":\"ProtocolFeeUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"returnData\",\"type\":\"bytes\"}],\"name\":\"QueryExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"}],\"name\":\"RateLimitExceeded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"txHash\",\"type\":\"bytes32\"}],\"name\":\"TransactionValidated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"MAX_CALLS_PER_WINDOW\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"RATE_LIMIT_WINDOW\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"agentCallCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"agentGasUsed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"agentRegistry\",\"outputs\":[{\"internalType\":\"contract AgentRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"}],\"name\":\"authorizeFunction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"name\":\"authorizedFunctions\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes4[]\",\"name\":\"functionSelectors\",\"type\":\"bytes4[]\"}],\"name\":\"batchAuthorize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"callData\",\"type\":\"bytes\"}],\"name\":\"executeOnTarget\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"executionHistory\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasUsed\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeCollector\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"}],\"name\":\"getAgentAnalytics\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"totalCalls\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalGasUsed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"avgGasPerCall\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"}],\"name\":\"getExecutionHistory\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasUsed\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"internalType\":\"struct ContractMindHubV2.ExecutionContext[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"}],\"name\":\"getRateLimitInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"callCount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"resetTime\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isLimited\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"}],\"name\":\"isFunctionAuthorized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"protocolFeeBps\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"callData\",\"type\":\"bytes\"}],\"name\":\"queryTarget\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"},{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"gasUsed\",\"type\":\"uint256\"}],\"name\":\"recordTransaction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"}],\"name\":\"revokeFunction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newCollector\",\"type\":\"address\"}],\"name\":\"setFeeCollector\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newFeeBps\",\"type\":\"uint256\"}],\"name\":\"setProtocolFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"trustedCallers\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"agentId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionSelector\",\"type\":\"bytes4\"}],\"name\":\"validateTransaction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"authorized\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"This version uses a combination of strategies:      1. For view functions: direct staticcall      2. For state changes: User calls target directly, hub validates via events/callbacks      3. Alternative: Hub-aware contracts that check tx.origin or use meta-transactions\",\"errors\":{\"EnforcedPause()\":[{\"details\":\"The operation failed because the contract is paused.\"}],\"ExpectedPause()\":[{\"details\":\"The operation failed because the contract is not paused.\"}],\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}],\"ReentrancyGuardReentrantCall()\":[{\"details\":\"Unauthorized reentrant call.\"}]},\"events\":{\"Paused(address)\":{\"details\":\"Emitted when the pause is triggered by `account`.\"},\"Unpaused(address)\":{\"details\":\"Emitted when the pause is lifted by `account`.\"}},\"kind\":\"dev\",\"methods\":{\"authorizeFunction(bytes32,address,bytes4)\":{\"params\":{\"agentId\":\"Agent to authorize\",\"functionSelector\":\"4-byte function signature\",\"targetContract\":\"Contract containing the function\"}},\"batchAuthorize(bytes32,address,bytes4[])\":{\"params\":{\"agentId\":\"Agent to authorize\",\"functionSelectors\":\"Array of function selectors\",\"targetContract\":\"Contract containing the functions\"}},\"executeOnTarget(bytes32,address,bytes)\":{\"details\":\"This uses tx.origin to identify the user while hub validates\",\"params\":{\"agentId\":\"Agent performing the execution\",\"callData\":\"Encoded function call\",\"targetContract\":\"Contract to call\"},\"returns\":{\"_0\":\"bytes Execution result\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"paused()\":{\"details\":\"Returns true if the contract is paused, and false otherwise.\"},\"queryTarget(bytes32,address,bytes)\":{\"params\":{\"agentId\":\"Agent performing the query\",\"callData\":\"Encoded function call\",\"targetContract\":\"Contract to query\"},\"returns\":{\"_0\":\"bytes Query result\"}},\"recordTransaction(bytes32,address,bytes4,bool,uint256)\":{\"details\":\"Call this after user executes transaction on target contract\",\"params\":{\"agentId\":\"Agent identifier\",\"functionSelector\":\"Function that was called\",\"success\":\"Whether transaction succeeded\",\"targetContract\":\"Target contract\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"revokeFunction(bytes32,address,bytes4)\":{\"params\":{\"agentId\":\"Agent to revoke from\",\"functionSelector\":\"4-byte function signature\",\"targetContract\":\"Contract containing the function\"}},\"setFeeCollector(address)\":{\"params\":{\"newCollector\":\"New collector address\"}},\"setProtocolFee(uint256)\":{\"params\":{\"newFeeBps\":\"New fee in basis points (max 500 = 5%)\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"validateTransaction(bytes32,address,bytes4)\":{\"details\":\"User calls target contract directly, but hub validates first\",\"params\":{\"agentId\":\"Agent identifier\",\"functionSelector\":\"Function to call\",\"targetContract\":\"Target contract\"},\"returns\":{\"authorized\":\"Whether the call is authorized\"}}},\"title\":\"ContractMindHubV2\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"authorizeFunction(bytes32,address,bytes4)\":{\"notice\":\"Authorize a function for an agent\"},\"batchAuthorize(bytes32,address,bytes4[])\":{\"notice\":\"Batch authorize multiple functions\"},\"executeOnTarget(bytes32,address,bytes)\":{\"notice\":\"Execute state-changing function with user as actual caller\"},\"getAgentAnalytics(bytes32)\":{\"notice\":\"Get agent analytics\"},\"getExecutionHistory(bytes32)\":{\"notice\":\"Get execution history for an agent\"},\"getRateLimitInfo(address,bytes32)\":{\"notice\":\"Get rate limit info for user\"},\"isFunctionAuthorized(bytes32,address,bytes4)\":{\"notice\":\"Check if function is authorized\"},\"pause()\":{\"notice\":\"Pause contract (emergency only)\"},\"queryTarget(bytes32,address,bytes)\":{\"notice\":\"Execute read-only query on target contract\"},\"recordTransaction(bytes32,address,bytes4,bool,uint256)\":{\"notice\":\"Record a transaction that was executed directly by user\"},\"revokeFunction(bytes32,address,bytes4)\":{\"notice\":\"Revoke function authorization\"},\"setFeeCollector(address)\":{\"notice\":\"Update fee collector address\"},\"setProtocolFee(uint256)\":{\"notice\":\"Update protocol fee\"},\"unpause()\":{\"notice\":\"Unpause contract\"},\"validateTransaction(bytes32,address,bytes4)\":{\"notice\":\"Validate a transaction before user executes it directly\"}},\"notice\":\"Enhanced hub with proper call forwarding that preserves msg.sender context\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/ContractMindHubV2.sol\":\"ContractMindHubV2\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/\",\":ds-test/=lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/\",\":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"],\"viaIR\":true},\"sources\":{\"lib/openzeppelin-contracts/contracts/access/Ownable.sol\":{\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8ed324d3920bb545059d66ab97d43e43ee85fd3bd52e03e401f020afb0b120f6\",\"dweb:/ipfs/QmfEckWLmZkDDcoWrkEvMWhms66xwTLff9DDhegYpvHo1a\"]},\"lib/openzeppelin-contracts/contracts/utils/Context.sol\":{\"keccak256\":\"0x75a4ee64c68dbd5f38bddd06e664a64c8271b4caa554fb6f0607dfd672bb4bf3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0c4e6cb30d3601e2f7af5af09e265508147cb275a8dcd99d6f7363645cc56867\",\"dweb:/ipfs/QmNgFkoXNWoUbAyw71rr1sKQ95Rj2GfvYiWg79xEYDn2NY\"]},\"lib/openzeppelin-contracts/contracts/utils/Pausable.sol\":{\"keccak256\":\"0xb2e5f50762c27fb4b123e3619c3c02bdcba5e515309382e5bfb6f7d6486510bd\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1a4b83328c98d518a2699c2cbe9e9b055e78aa57fa8639f1b88deb8b3750b5dc\",\"dweb:/ipfs/QmXdcYj5v7zQxXFPULShHkR5p4Wa2zYuupbHnFdV3cHYtc\"]},\"lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol\":{\"keccak256\":\"0xf980daa263b661ab8ddee7d4fd833c7da7e7995e2c359ff1f17e67e4112f2236\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7448ab095d6940130bcf76ba47a2eab14148c83119523b93dd89f6d84edd6c02\",\"dweb:/ipfs/QmawrZ4voKQjH3oomXT3Kuheb3Mnmo2VvVpxg8Ne5UJUrd\"]},\"src/AgentRegistry.sol\":{\"keccak256\":\"0x758504453d14a82b026bbd655d48a32c0443c8913ca2f12ce3d876cff726a6b6\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://70651005accb6a1c4a37edee69960343a5b8edbb5820793ba4c2eaa88df3981b\",\"dweb:/ipfs/QmaHkPi1pfQVaMkmFspQgEw59ms3hQYEVGUwRUvA5DdZMw\"]},\"src/ContractMindHubV2.sol\":{\"keccak256\":\"0x13aad7661ed0386bdf44ccc0ed1c28e9c3f3e188e2289706a5375cac0da99bb0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2a17006d1652fa852402597660b46e2cf35e04e4d619315e1835ff1d72df66ab\",\"dweb:/ipfs/QmURc7gdQyEqSHUuavikeAQ6tR36in5q821N1JNVa1zB4k\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.28+commit.7893614a"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_agentRegistry",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "_feeCollector",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "AgentNotActive"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "EnforcedPause"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "returnData",
+              "type": "bytes"
+            }
+          ],
+          "type": "error",
+          "name": "ExecutionFailed"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "ExpectedPause"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "FeeTooHigh"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "FunctionNotAuthorized"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "InvalidFeeCollector"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "InvalidTarget"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "NotAgentOwner"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "type": "error",
+          "name": "OwnableInvalidOwner"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "type": "error",
+          "name": "OwnableUnauthorizedAccount"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "RateLimitExceededError"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "ReentrancyGuardReentrantCall"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "Unauthorized"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newCollector",
+              "type": "address",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "FeeCollectorUpdated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "FunctionAuthorized",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4",
+              "indexed": false
+            },
+            {
+              "internalType": "bool",
+              "name": "success",
+              "type": "bool",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes",
+              "name": "returnData",
+              "type": "bytes",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "FunctionExecuted",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "FunctionRevoked",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "OwnershipTransferred",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "Paused",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "newFeeBps",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "ProtocolFeeUpdated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes",
+              "name": "returnData",
+              "type": "bytes",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "QueryExecuted",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "RateLimitExceeded",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "txHash",
+              "type": "bytes32",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "TransactionValidated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "Unpaused",
+          "anonymous": false
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "MAX_CALLS_PER_WINDOW",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "RATE_LIMIT_WINDOW",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "agentCallCount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "agentGasUsed",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "agentRegistry",
+          "outputs": [
+            {
+              "internalType": "contract AgentRegistry",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "authorizeFunction"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "",
+              "type": "bytes4"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "authorizedFunctions",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4[]",
+              "name": "functionSelectors",
+              "type": "bytes4[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "batchAuthorize"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "callData",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "payable",
+          "type": "function",
+          "name": "executeOnTarget",
+          "outputs": [
+            {
+              "internalType": "bytes",
+              "name": "",
+              "type": "bytes"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "executionHistory",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "gasUsed",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "success",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "feeCollector",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAgentAnalytics",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "totalCalls",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalGasUsed",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "avgGasPerCall",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getExecutionHistory",
+          "outputs": [
+            {
+              "internalType": "struct ContractMindHubV2.ExecutionContext[]",
+              "name": "",
+              "type": "tuple[]",
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "user",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bytes4",
+                  "name": "functionSelector",
+                  "type": "bytes4"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "gasUsed",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "success",
+                  "type": "bool"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getRateLimitInfo",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "callCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "resetTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isLimited",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isFunctionAuthorized",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "pause"
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "protocolFeeBps",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "callData",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "queryTarget",
+          "outputs": [
+            {
+              "internalType": "bytes",
+              "name": "",
+              "type": "bytes"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4"
+            },
+            {
+              "internalType": "bool",
+              "name": "success",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "gasUsed",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "recordTransaction"
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "renounceOwnership"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "revokeFunction"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newCollector",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "setFeeCollector"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "newFeeBps",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "setProtocolFee"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "transferOwnership"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "trustedCallers",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "unpause"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "agentId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "targetContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes4",
+              "name": "functionSelector",
+              "type": "bytes4"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "validateTransaction",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "authorized",
+              "type": "bool"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "authorizeFunction(bytes32,address,bytes4)": {
+            "params": {
+              "agentId": "Agent to authorize",
+              "functionSelector": "4-byte function signature",
+              "targetContract": "Contract containing the function"
+            }
+          },
+          "batchAuthorize(bytes32,address,bytes4[])": {
+            "params": {
+              "agentId": "Agent to authorize",
+              "functionSelectors": "Array of function selectors",
+              "targetContract": "Contract containing the functions"
+            }
+          },
+          "executeOnTarget(bytes32,address,bytes)": {
+            "details": "This uses tx.origin to identify the user while hub validates",
+            "params": {
+              "agentId": "Agent performing the execution",
+              "callData": "Encoded function call",
+              "targetContract": "Contract to call"
+            },
+            "returns": {
+              "_0": "bytes Execution result"
+            }
+          },
+          "owner()": {
+            "details": "Returns the address of the current owner."
+          },
+          "paused()": {
+            "details": "Returns true if the contract is paused, and false otherwise."
+          },
+          "queryTarget(bytes32,address,bytes)": {
+            "params": {
+              "agentId": "Agent performing the query",
+              "callData": "Encoded function call",
+              "targetContract": "Contract to query"
+            },
+            "returns": {
+              "_0": "bytes Query result"
+            }
+          },
+          "recordTransaction(bytes32,address,bytes4,bool,uint256)": {
+            "details": "Call this after user executes transaction on target contract",
+            "params": {
+              "agentId": "Agent identifier",
+              "functionSelector": "Function that was called",
+              "success": "Whether transaction succeeded",
+              "targetContract": "Target contract"
+            }
+          },
+          "renounceOwnership()": {
+            "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+          },
+          "revokeFunction(bytes32,address,bytes4)": {
+            "params": {
+              "agentId": "Agent to revoke from",
+              "functionSelector": "4-byte function signature",
+              "targetContract": "Contract containing the function"
+            }
+          },
+          "setFeeCollector(address)": {
+            "params": {
+              "newCollector": "New collector address"
+            }
+          },
+          "setProtocolFee(uint256)": {
+            "params": {
+              "newFeeBps": "New fee in basis points (max 500 = 5%)"
+            }
+          },
+          "transferOwnership(address)": {
+            "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+          },
+          "validateTransaction(bytes32,address,bytes4)": {
+            "details": "User calls target contract directly, but hub validates first",
+            "params": {
+              "agentId": "Agent identifier",
+              "functionSelector": "Function to call",
+              "targetContract": "Target contract"
+            },
+            "returns": {
+              "authorized": "Whether the call is authorized"
+            }
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {
+          "authorizeFunction(bytes32,address,bytes4)": {
+            "notice": "Authorize a function for an agent"
+          },
+          "batchAuthorize(bytes32,address,bytes4[])": {
+            "notice": "Batch authorize multiple functions"
+          },
+          "executeOnTarget(bytes32,address,bytes)": {
+            "notice": "Execute state-changing function with user as actual caller"
+          },
+          "getAgentAnalytics(bytes32)": {
+            "notice": "Get agent analytics"
+          },
+          "getExecutionHistory(bytes32)": {
+            "notice": "Get execution history for an agent"
+          },
+          "getRateLimitInfo(address,bytes32)": {
+            "notice": "Get rate limit info for user"
+          },
+          "isFunctionAuthorized(bytes32,address,bytes4)": {
+            "notice": "Check if function is authorized"
+          },
+          "pause()": {
+            "notice": "Pause contract (emergency only)"
+          },
+          "queryTarget(bytes32,address,bytes)": {
+            "notice": "Execute read-only query on target contract"
+          },
+          "recordTransaction(bytes32,address,bytes4,bool,uint256)": {
+            "notice": "Record a transaction that was executed directly by user"
+          },
+          "revokeFunction(bytes32,address,bytes4)": {
+            "notice": "Revoke function authorization"
+          },
+          "setFeeCollector(address)": {
+            "notice": "Update fee collector address"
+          },
+          "setProtocolFee(uint256)": {
+            "notice": "Update protocol fee"
+          },
+          "unpause()": {
+            "notice": "Unpause contract"
+          },
+          "validateTransaction(bytes32,address,bytes4)": {
+            "notice": "Validate a transaction before user executes it directly"
+          }
+        },
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+        "ds-test/=lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+        "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+        "forge-std/=lib/forge-std/src/",
+        "openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/ContractMindHubV2.sol": "ContractMindHubV2"
+      },
+      "evmVersion": "cancun",
+      "libraries": {},
+      "viaIR": true
+    },
+    "sources": {
+      "lib/openzeppelin-contracts/contracts/access/Ownable.sol": {
+        "keccak256": "0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb",
+        "urls": [
+          "bzz-raw://8ed324d3920bb545059d66ab97d43e43ee85fd3bd52e03e401f020afb0b120f6",
+          "dweb:/ipfs/QmfEckWLmZkDDcoWrkEvMWhms66xwTLff9DDhegYpvHo1a"
+        ],
+        "license": "MIT"
+      },
+      "lib/openzeppelin-contracts/contracts/utils/Context.sol": {
+        "keccak256": "0x75a4ee64c68dbd5f38bddd06e664a64c8271b4caa554fb6f0607dfd672bb4bf3",
+        "urls": [
+          "bzz-raw://0c4e6cb30d3601e2f7af5af09e265508147cb275a8dcd99d6f7363645cc56867",
+          "dweb:/ipfs/QmNgFkoXNWoUbAyw71rr1sKQ95Rj2GfvYiWg79xEYDn2NY"
+        ],
+        "license": "MIT"
+      },
+      "lib/openzeppelin-contracts/contracts/utils/Pausable.sol": {
+        "keccak256": "0xb2e5f50762c27fb4b123e3619c3c02bdcba5e515309382e5bfb6f7d6486510bd",
+        "urls": [
+          "bzz-raw://1a4b83328c98d518a2699c2cbe9e9b055e78aa57fa8639f1b88deb8b3750b5dc",
+          "dweb:/ipfs/QmXdcYj5v7zQxXFPULShHkR5p4Wa2zYuupbHnFdV3cHYtc"
+        ],
+        "license": "MIT"
+      },
+      "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol": {
+        "keccak256": "0xf980daa263b661ab8ddee7d4fd833c7da7e7995e2c359ff1f17e67e4112f2236",
+        "urls": [
+          "bzz-raw://7448ab095d6940130bcf76ba47a2eab14148c83119523b93dd89f6d84edd6c02",
+          "dweb:/ipfs/QmawrZ4voKQjH3oomXT3Kuheb3Mnmo2VvVpxg8Ne5UJUrd"
+        ],
+        "license": "MIT"
+      },
+      "src/AgentRegistry.sol": {
+        "keccak256": "0x758504453d14a82b026bbd655d48a32c0443c8913ca2f12ce3d876cff726a6b6",
+        "urls": [
+          "bzz-raw://70651005accb6a1c4a37edee69960343a5b8edbb5820793ba4c2eaa88df3981b",
+          "dweb:/ipfs/QmaHkPi1pfQVaMkmFspQgEw59ms3hQYEVGUwRUvA5DdZMw"
+        ],
+        "license": "MIT"
+      },
+      "src/ContractMindHubV2.sol": {
+        "keccak256": "0x13aad7661ed0386bdf44ccc0ed1c28e9c3f3e188e2289706a5375cac0da99bb0",
+        "urls": [
+          "bzz-raw://2a17006d1652fa852402597660b46e2cf35e04e4d619315e1835ff1d72df66ab",
+          "dweb:/ipfs/QmURc7gdQyEqSHUuavikeAQ6tR36in5q821N1JNVa1zB4k"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "id": 30
+}

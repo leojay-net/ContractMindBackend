@@ -1,0 +1,17 @@
+.env*
+.venv
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+.idea/
+/.venv
+.DS_Store
+node_modules/
+dist/
+build/
+*.log
+poetry.lock
+.ipynb_checkpoints/
+coverage/
+.coverage
